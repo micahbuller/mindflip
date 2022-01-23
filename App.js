@@ -15,8 +15,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
-        <Stack.Screen name="LearnMore" component={LearnMore} />
-        <Stack.Screen name="YourDeck" component={YourDeck} />
+        <Stack.Screen name="LearnMore" component={LearnMore} options={{headerShown: false}}/>
+        <Stack.Screen name="YourDeck" component={YourDeck} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
