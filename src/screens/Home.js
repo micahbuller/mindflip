@@ -7,14 +7,16 @@ import {
 } from "react-native";
 import React from 'react';
 import tw from 'tailwind-rn';
+import { ImageBackground } from "react-native";
   
 export default function Home({navigation}) {
 
   return (
   
-    <SafeAreaView style={tw(`flex-1 bg-indigo-500`)}>
+    <ImageBackground source={require('../assets/Home.png')} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}>
 
-      <View style={tw('flex-row items-center justify-end px-5')}>
+    <SafeAreaView style={tw(`flex-1 `)}>
+        <View style={tw('flex-row items-center justify-end px-5')}>
         <TouchableOpacity onPress={() => {console.log("Pressed")}}>
           <Text style={tw('text-2xl text-black')}>#</Text>
         </TouchableOpacity>
@@ -22,14 +24,14 @@ export default function Home({navigation}) {
       
       <View style={tw('m-10 flex-1')}>
         <View style={tw('mx-10 items-center justify-center')}>
-          <View style={tw('flex-row h-1/2 justify-start bg-gray-50 opacity-75 w-96 px-2 py-5 rounded-t-xl text-lg')}>
+          <View style={tw('h-1/2 justify-start bg-gray-50 opacity-75 w-96 px-2 py-5 rounded-t-xl text-lg')}>
             <TextInput
               style={tw('mx-5 text-lg font-bold')}
               placeholder='What have you been telling yourself?'
               multiline
             />
           </View>
-          <View style={tw('flex-row h-1/2 justify-end items-end bg-gray-50 opacity-75 w-96 px-2 py-5 rounded-b-xl text-lg')}>
+          <View style={tw('h-1/2 justify-end items-end bg-gray-50 opacity-75 w-96 px-2 py-5 rounded-b-xl text-lg')}>
             <TextInput
               style={tw('mx-5 text-lg font-bold')}
               placeholder='Tell yourself the truth...'
@@ -53,8 +55,8 @@ export default function Home({navigation}) {
           <Text style={tw('text-2xl text-black')}>your cards</Text>
         </TouchableOpacity>
       </View>
-
-
     </SafeAreaView>
+    </ImageBackground>
+
   );
 };
