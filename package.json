@@ -13,6 +13,7 @@
     "@react-navigation/native-stack": "^6.2.5",
     "autoprefixer": "^10.4.1",
     "expo": "~44.0.2",
+    "expo-blur": "^11.0.0",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "postcss": "^8.4.5",
