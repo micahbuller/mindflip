@@ -1,11 +1,64 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import {
+    Text,
+    SafeAreaView,
+    TouchableOpacity,
+    View,
+    FlatList,
+  } from "react-native";
+  import tw from 'tailwind-rn';
+  import { ImageBackground } from "react-native";
 
-const LearnMore = () => {
-    return (
-        <View>
-            <Text>Learn More</Text>
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      title: 'What is CBT 0.1',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      title: 'What is CBT 0.2',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      title: 'Identifying Falsity',
+    },
+  ];
+  
+
+const LearnMore = ({navigation}) => {
+
+    const renderItem = ({item}) => (
+        <View style={[tw('flex-row bg-white opacity-50 rounded-lg mx-10 my-2 justify-between items-center px-5 pt-5 pb-5')]}>
+            <TouchableOpacity onPress={() => {console.log("pressed flatlist item")}}>
+                <Text style={tw('text-xl text-black')}>{item.title}</Text>
+            </TouchableOpacity>
         </View>
+    )
+
+    return (
+            <ImageBackground source={require('../assets/Home.png')} resizeMode="cover" style={{flex: 1, justifyContent: "center"}}>
+                <SafeAreaView style={tw(`flex-1`)}>
+
+                    <View style={tw('flex-row items-center justify-start px-5')}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
+                            <Text style={tw('text-2xl text-black')}>back</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={tw('flex-1 py-10')}>
+                        <FlatList
+                            data={DATA}
+                            keyExtractor={(item) => item.id}
+                            renderItem={renderItem}
+                        />
+                    </View>
+
+                    <View style={tw('flex-1 items-center justify-start px-5')}>
+                        <Text style={tw('font-bold text-xl')}>More to come</Text>
+                    </View>
+        
+                </SafeAreaView>
+            </ImageBackground>
     )
 }
 

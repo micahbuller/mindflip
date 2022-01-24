@@ -40,6 +40,11 @@ const YourDeck = ({navigation}) => {
                                     width={100}
                                     source={{ uri: "https://links.papareact.com/6gb" }}
                                     />
+                                    <View style={tw('flex-row justify-end')}>
+                                        <TouchableOpacity onPress={() => {console.log("Pressed")}}>
+                                            <Text style={tw('pt-5 font-bold text-black')}>edit</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             )
                         }}
