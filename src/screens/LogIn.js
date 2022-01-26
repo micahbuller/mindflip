@@ -25,19 +25,19 @@ const LogIn = ({ navigation }) => {
           <View style={tw("flex-row items-center justify-end px-5")}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Home");
+                navigation.navigate("SignUp");
               }}
             >
-              <Text style={tw("text-2xl text-black")}>or sign up</Text>
+              <Text style={tw("text-xl text-black")}>or sign up</Text>
             </TouchableOpacity>
           </View>
-          <View style={tw("justify-center flex-1 items-center")}>
+          <View style={tw("justify-center flex-1 items-start px-5")}>
             <Text style={tw("text-3xl w-28")}>Wlcm to mindflip</Text>
           </View>
-          <View style={tw("flex-1 justify-center items-center mx-5")}>
+          <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
             <View
               style={tw(
-                "bg-gray-50 flex-row w-full opacity-75 px-2 py-5 rounded-xl text-lg mb-5"
+                "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
               )}
             >
               <TextInput
@@ -49,7 +49,7 @@ const LogIn = ({ navigation }) => {
             </View>
             <View
               style={tw(
-                "bg-gray-50 flex-row w-full opacity-75 px-2 py-5 rounded-xl text-lg mb-5"
+                "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
               )}
             >
               <TextInput
