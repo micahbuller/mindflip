@@ -8,8 +8,20 @@ import {
 import React from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
+import Firebase from '../../config/firebase';
+
+const auth = Firebase.auth();
 
 const Menu = ({ navigation }) => {
+
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../assets/Home.png")}
@@ -58,9 +70,7 @@ const Menu = ({ navigation }) => {
         </View>
         <View style={tw("flex-row items-center justify-center px-5")}>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("LogIn");
-            }}
+            onPress={handleSignOut}
           >
             <Text style={tw("text-2xl text-black pb-10")}>log out</Text>
           </TouchableOpacity>
