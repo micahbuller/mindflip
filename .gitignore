@@ -54,6 +54,3 @@ buck-out/
 web-build/
 dist/
 
-
-#Firebase SDK
-config/keys.js 

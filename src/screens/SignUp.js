@@ -5,12 +5,34 @@ import {
     TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
+    Alert,
   } from "react-native";
-  import React from "react";
+  import React, { useState } from 'react';
   import tw from "tailwind-rn";
   import { ImageBackground } from "react-native";
+  import Firebase from '../../config/firebase';
+
+const auth = Firebase.auth();
   
   const SignUp = ({ navigation }) => {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onHandleSignup = async () => {
+      try {
+        if (email !== '' && password !== '') {
+          await auth.createUserWithEmailAndPassword(email, password);
+        }
+      } catch (error) {
+        Alert.alert(error.message);
+        setSignupError(error.message);
+      }
+    };
+
+    
+
     return (
       <ImageBackground
         source={require("../assets/LogIn.png")}
@@ -44,6 +66,7 @@ import {
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="Full Name"
                   multiline
+                  onChangeText={(name) => setName(name)}
                 />
               </View>
         
@@ -57,6 +80,7 @@ import {
                   placeholder="Email"
                   multiline
                   keyboardType="email-address"
+                  onChangeText={(email) => setEmail(email)}
                 />
               </View>
               <View
@@ -67,23 +91,22 @@ import {
                 <TextInput
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="Password"
+                  value={password}
+                  onChangeText={(password) => setPassword(password)}
                   secureTextEntry={true}
-                  multiline
-                  keyboardType="email-address"
+
                 />
               </View>
               <TouchableOpacity
                 style={tw("w-full")}
-                onPress={() => {
-                  navigation.navigate("Home");
-                }}
+                onPress={onHandleSignup}
               >
                 <View
                   style={tw(
                     "bg-gray-900 flex-row w-full items-center justify-center opacity-75 px-2 py-5 rounded-full text-lg"
                   )}
                 >
-                  <Text style={tw("text-2xl text-white")}>Sign In</Text>
+                  <Text style={tw("text-2xl text-white")}>Sign Up</Text>
                 </View>
               </TouchableOpacity>
             </View>

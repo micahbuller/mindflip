@@ -5,12 +5,31 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
-import React from "react";
+import React, { useState } from 'react';
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
+import Firebase from '../../config/firebase';
+
+const auth = Firebase.auth();
 
 const LogIn = ({ navigation }) => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onLogin = async () => {
+    try {
+      if (email !== '' && password !== '') {
+        await auth.signInWithEmailAndPassword(email, password);
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+      setLoginError(error.message);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../assets/LogIn.png")}
@@ -45,6 +64,7 @@ const LogIn = ({ navigation }) => {
                 placeholder="Email"
                 multiline
                 keyboardType="email-address"
+                onChangeText={(email) => setEmail(email)}
               />
             </View>
             <View
@@ -58,13 +78,13 @@ const LogIn = ({ navigation }) => {
                 secureTextEntry={true}
                 multiline
                 keyboardType="email-address"
+                onChangeText={(password) => setPassword(password)}
+
               />
             </View>
             <TouchableOpacity
               style={tw("w-full")}
-              onPress={() => {
-                navigation.navigate("Home");
-              }}
+              onPress={onLogin}
             >
               <View
                 style={tw(
