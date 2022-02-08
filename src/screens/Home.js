@@ -6,11 +6,16 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, {useContext} from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
+import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+//import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 export default function Home({ navigation }) {
+
+  const { user } = useContext(AuthenticatedUserContext);
+
   return (
     <ImageBackground
       source={require("../assets/Home.png")}

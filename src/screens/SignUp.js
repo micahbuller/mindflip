@@ -11,8 +11,11 @@ import {
   import tw from "tailwind-rn";
   import { ImageBackground } from "react-native";
   import Firebase from '../../config/firebase';
+  import { getFirestore } from 'firebase/firestore';
+  import { collection, onSnapshot, orderBy, query, setDoc, doc } from "@firebase/firestore";
 
 const auth = Firebase.auth();
+const db = getFirestore();
   
   const SignUp = ({ navigation }) => {
 
@@ -22,8 +25,15 @@ const auth = Firebase.auth();
 
     const onHandleSignup = async () => {
       try {
-        if (email !== '' && password !== '') {
+        if (email !== '' && password !== '' && name !== '') {
           await auth.createUserWithEmailAndPassword(email, password);
+          setDoc(doc(db, "users", email), {
+            email: email,
+            name: name,
+          })
+
+        }else{
+          Alert.alert("Honey, you forgot to fill out everything.");
         }
       } catch (error) {
         Alert.alert(error.message);
@@ -65,7 +75,6 @@ const auth = Firebase.auth();
                 <TextInput
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="Full Name"
-                  multiline
                   onChangeText={(name) => setName(name)}
                 />
               </View>
@@ -78,7 +87,7 @@ const auth = Firebase.auth();
                 <TextInput
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="Email"
-                  multiline
+                  autoCapitalize="none"
                   keyboardType="email-address"
                   onChangeText={(email) => setEmail(email)}
                 />
