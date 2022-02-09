@@ -74,13 +74,13 @@ const YourDeck = ({ navigation }) => {
                       { flex: 1, height: "75%", width: "100%" },
                     ]}
                   >
-                    <View style={tw("flex-1 pb-5 justify-end items-end")}>
-                      <Text style={tw("font-bold text-2xl line-through")}>
+                    <View style={tw("flex-1 pb-5 px-5 justify-end items-end")}>
+                      <Text style={tw("font-bold text-2xl line-through text-center")}>
                         {card?.lie}
                       </Text>
                     </View>
-                    <View style={tw("flex-1 pt-5")}>
-                      <Text style={tw("font-bold text-2xl")}>
+                    <View style={tw("flex-1 pt-5 px-5")}>
+                      <Text style={tw("font-bold text-2xl text-center")}>
                         {card?.truth}
                       </Text>
                     </View>
@@ -91,7 +91,7 @@ const YourDeck = ({ navigation }) => {
                           console.log("Pressed");
                         }}
                       >
-                        <Text style={tw("pb-5 font-bold text-gray opacity-25")}>
+                        <Text style={tw("pb-5 font-bold text-black opacity-25")}>
                           edit
                         </Text>
                       </TouchableOpacity>
