@@ -26,7 +26,6 @@ const LogIn = ({ navigation }) => {
       }
     } catch (error) {
       Alert.alert(error.message);
-      setLoginError(error.message);
     }
   };
 
@@ -62,7 +61,7 @@ const LogIn = ({ navigation }) => {
               <TextInput
                 style={tw("mx-5 text-lg font-bold")}
                 placeholder="Email"
-                multiline
+                autoCapitalize="none"
                 keyboardType="email-address"
                 onChangeText={(email) => setEmail(email)}
               />

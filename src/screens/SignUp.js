@@ -12,7 +12,7 @@ import {
   import { ImageBackground } from "react-native";
   import Firebase from '../../config/firebase';
   import { getFirestore } from 'firebase/firestore';
-  import { collection, onSnapshot, orderBy, query, setDoc, doc } from "@firebase/firestore";
+  import { setDoc, doc } from "@firebase/firestore";
 
 const auth = Firebase.auth();
 const db = getFirestore();
@@ -37,7 +37,6 @@ const db = getFirestore();
         }
       } catch (error) {
         Alert.alert(error.message);
-        setSignupError(error.message);
       }
     };
 

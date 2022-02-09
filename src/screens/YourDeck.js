@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Swiper from "react-native-deck-swiper";
 import {
   Text,
@@ -11,8 +11,30 @@ import {
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { BlurView } from "expo-blur";
+import { collection, onSnapshot, query } from "@firebase/firestore";
+import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
+import { getFirestore } from "firebase/firestore";
 
 const YourDeck = ({ navigation }) => {
+  const [cards, setCards] = useState([]);
+  const { user } = useContext(AuthenticatedUserContext);
+  const db = getFirestore();
+
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "users", user.email, "cards")),
+        (snapshot) =>
+          setCards(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }))
+          )
+      ),
+    [db]
+  );
+
   return (
     <ImageBackground
       source={require("../assets/Home.png")}
@@ -32,7 +54,8 @@ const YourDeck = ({ navigation }) => {
 
         <View style={tw("flex-1")}>
           <Swiper
-            cards={["DO", "MORE", "OF", "WHAT", "MAKES", "YOU", "HAPPY"]}
+            infinite={true}
+            cards={cards}
             renderCard={(card) => {
               return (
                 <View
@@ -51,20 +74,24 @@ const YourDeck = ({ navigation }) => {
                       { flex: 1, height: "75%", width: "100%" },
                     ]}
                   >
-                    <Text style={tw("font-bold pb-5")}>{card}</Text>
-                    <Image
-                      style={tw("h-20 w-full")}
-                      height={100}
-                      width={100}
-                      source={{ uri: "https://links.papareact.com/6gb" }}
-                    />
+                    <View style={tw("flex-1 pb-5 justify-end items-end")}>
+                      <Text style={tw("font-bold text-2xl line-through")}>
+                        {card?.lie}
+                      </Text>
+                    </View>
+                    <View style={tw("flex-1 pt-5")}>
+                      <Text style={tw("font-bold text-2xl")}>
+                        {card?.truth}
+                      </Text>
+                    </View>
+                    
                     <View style={tw("flex-row justify-end")}>
                       <TouchableOpacity
                         onPress={() => {
                           console.log("Pressed");
                         }}
                       >
-                        <Text style={tw("pt-5 font-bold text-black")}>
+                        <Text style={tw("pb-5 font-bold text-gray opacity-25")}>
                           edit
                         </Text>
                       </TouchableOpacity>

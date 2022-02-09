@@ -5,16 +5,30 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
-//import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { addCard } from "../services/cardHelper";
 
 export default function Home({ navigation }) {
 
   const { user } = useContext(AuthenticatedUserContext);
+  const [truth, setTruth] = useState('')
+  const [lie, setLie] = useState('')
+
+  function sendCard(){
+    if(truth != '' && lie != ''){
+      addCard(user.email, truth, lie)
+      setLie('')
+      setTruth('')
+      Alert.alert("Card added.")
+    }else{
+      Alert.alert("You haven't entered anything yet. Try looking deeper.")
+    }
+  }
 
   return (
     <ImageBackground
@@ -47,6 +61,8 @@ export default function Home({ navigation }) {
                 <TextInput
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="What have you been telling yourself?"
+                  value={lie}
+                  onChangeText={setLie}
                   multiline
                 />
               </View>
@@ -58,15 +74,15 @@ export default function Home({ navigation }) {
                 <TextInput
                   style={tw("mx-5 text-lg font-bold")}
                   placeholder="Tell yourself the truth..."
+                  value={truth}
+                  onChangeText={setTruth}
                   multiline
                 />
               </View>
             </View>
             <View style={tw("flex-row justify-end")}>
               <TouchableOpacity
-                onPress={() => {
-                  console.log("Pressed");
-                }}
+                onPress={sendCard}
               >
                 <Text style={tw("pt-5 font-bold text-black")}>
                   put it in your stack
