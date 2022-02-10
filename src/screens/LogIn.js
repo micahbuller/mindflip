@@ -55,11 +55,11 @@ const LogIn = ({ navigation }) => {
           <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
             <View
               style={tw(
-                "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
+                "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
               )}
             >
               <TextInput
-                style={tw("mx-5 text-lg font-bold")}
+                style={tw("p-5 text-lg flex-1 font-bold")}
                 placeholder="Email"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -68,11 +68,11 @@ const LogIn = ({ navigation }) => {
             </View>
             <View
               style={tw(
-                "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
+                "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
               )}
             >
               <TextInput
-                style={tw("mx-5 text-lg font-bold")}
+                style={tw("p-5 text-lg flex-1 font-bold")}
                 placeholder="Password"
                 secureTextEntry={true}
                 multiline

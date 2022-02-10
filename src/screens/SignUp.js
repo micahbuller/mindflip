@@ -68,11 +68,11 @@ const db = getFirestore();
             <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
             <View
                 style={tw(
-                  "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
+                  "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
                 )}
               >
                 <TextInput
-                  style={tw("mx-5 text-lg font-bold")}
+                  style={tw("p-5 flex-1 text-lg font-bold")}
                   placeholder="Full Name"
                   onChangeText={(name) => setName(name)}
                 />
@@ -80,11 +80,11 @@ const db = getFirestore();
         
               <View
                 style={tw(
-                  "bg-gray-50 flex-row w-full  px-2 py-5 rounded-xl text-lg mb-5"
+                  "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
                 )}
               >
                 <TextInput
-                  style={tw("mx-5 text-lg font-bold")}
+                  style={tw("p-5 flex-1 text-lg font-bold")}
                   placeholder="Email"
                   autoCapitalize="none"
                   keyboardType="email-address"
@@ -93,11 +93,11 @@ const db = getFirestore();
               </View>
               <View
                 style={tw(
-                  "bg-gray-50 flex-row w-full px-2 py-5 rounded-xl text-lg mb-5"
+                  "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
                 )}
               >
                 <TextInput
-                  style={tw("mx-5 text-lg font-bold")}
+                  style={tw("p-5 flex-1 text-lg font-bold")}
                   placeholder="Password"
                   value={password}
                   onChangeText={(password) => setPassword(password)}
