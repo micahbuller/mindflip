@@ -10,9 +10,10 @@ import {
 import React, { useState } from 'react';
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
-import Firebase from '../../config/firebase';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const auth = Firebase.auth();
+
+const auth = getAuth();
 
 const LogIn = ({ navigation }) => {
 
@@ -22,7 +23,19 @@ const LogIn = ({ navigation }) => {
   const onLogin = async () => {
     try {
       if (email !== '' && password !== '') {
-        await auth.signInWithEmailAndPassword(email, password);
+        await signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user)
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          Alert.alert(error.message + errorCode);
+
+        });
       }
     } catch (error) {
       Alert.alert(error.message);

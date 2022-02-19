@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, ActivityIndicator } from 'react-native';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Firebase from '../../config/firebase';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
 
-const auth = Firebase.auth();
+const auth = getAuth();
 
 export default function RootNavigator() {
     const { user, setUser } = useContext(AuthenticatedUserContext);
@@ -15,12 +16,19 @@ export default function RootNavigator() {
   
     useEffect(() => {
       // onAuthStateChanged returns an unsubscriber
-      const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
-        try {
-          await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
-          setIsLoading(false);
-        } catch (error) {
-          console.log(error);
+      const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+          setUser(user)
+          setIsLoading(false)
+          // ...
+        } else {
+          // User is signed out
+          // ...
+          setUser(null)
+          setIsLoading(false)
         }
       });
   
