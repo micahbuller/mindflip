@@ -7,35 +7,32 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-
 const auth = getAuth();
 
 const LogIn = ({ navigation }) => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onLogin = async () => {
     try {
-      if (email !== '' && password !== '') {
+      if (email !== "" && password !== "") {
         await signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log(user)
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          Alert.alert(error.message + errorCode);
-
-        });
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user);
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            Alert.alert(error.message + errorCode);
+          });
       }
     } catch (error) {
       Alert.alert(error.message);
@@ -59,17 +56,17 @@ const LogIn = ({ navigation }) => {
                 navigation.navigate("SignUp");
               }}
             >
-              <Text style={tw("text-xl text-black")}>or sign up</Text>
+              <Text style={[tw("text-xl text-black"), { fontFamily: "Nanum-Gothic" }]}>or sign up</Text>
             </TouchableOpacity>
           </View>
           <View style={tw("justify-center flex-1 items-start px-5")}>
-            <Text style={tw("text-3xl w-28")}>Wlcm to mindflip</Text>
+            <Text style={[tw("text-xl"), { fontFamily: "Mon-Cheri" }]}>
+              WLCM TO MINDFLIP
+            </Text>
           </View>
           <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
             <View
-              style={tw(
-                "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
-              )}
+              style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
                 style={tw("p-5 text-lg flex-1 font-bold")}
@@ -80,9 +77,7 @@ const LogIn = ({ navigation }) => {
               />
             </View>
             <View
-              style={tw(
-                "bg-gray-50 flex-row w-full rounded-xl text-lg mb-5"
-              )}
+              style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
                 style={tw("p-5 text-lg flex-1 font-bold")}
@@ -91,19 +86,22 @@ const LogIn = ({ navigation }) => {
                 multiline
                 keyboardType="email-address"
                 onChangeText={(password) => setPassword(password)}
-
               />
             </View>
-            <TouchableOpacity
-              style={tw("w-full")}
-              onPress={onLogin}
-            >
+            <TouchableOpacity style={tw("w-full")} onPress={onLogin}>
               <View
                 style={tw(
                   "bg-gray-900 flex-row w-full items-center justify-center opacity-75 px-2 py-5 rounded-full text-lg"
                 )}
               >
-                <Text style={tw("text-2xl text-white")}>Sign In</Text>
+                <Text
+                  style={[
+                    tw("text-xl text-white"),
+                    { fontFamily: "Mon-Cheri" },
+                  ]}
+                >
+                  Sign In
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

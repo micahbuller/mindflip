@@ -38,7 +38,7 @@ const LearnMore = ({ navigation }) => {
           ),
         ]}
       >
-        <Text style={tw("text-xl text-black")}>{item.title}</Text>
+        <Text style={[tw("text-xl text-black"), { fontFamily: "Nanum-Gothic" }]}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -56,7 +56,7 @@ const LearnMore = ({ navigation }) => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black")}>back</Text>
+            <Text style={[tw("text-2xl text-black"), { fontFamily: "Nanum-Gothic" }]}>back</Text>
           </TouchableOpacity>
         </View>
 
@@ -69,7 +69,7 @@ const LearnMore = ({ navigation }) => {
         </View>
 
         <View style={tw("flex-1 items-center justify-start px-5")}>
-          <Text style={tw("font-bold text-xl")}>More to come</Text>
+          <Text style={[tw("font-bold text-xl"), { fontFamily: "Nanum-Gothic" }]}>More to come</Text>
         </View>
       </SafeAreaView>
     </ImageBackground>

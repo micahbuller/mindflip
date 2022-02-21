@@ -35,7 +35,7 @@ const Menu = ({ navigation }) => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black")}>X</Text>
+            <Text style={[tw("text-2xl text-black"), { fontFamily: "Nanum-Gothic" }]}>X</Text>
           </TouchableOpacity>
         </View>
         <View style={tw("flex-1 justify-center items-center")}>
@@ -44,35 +44,35 @@ const Menu = ({ navigation }) => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black pb-10")}>Account</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Account</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black pb-10")}>Reminders</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Reminders</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black pb-10")}>Widget</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Widget</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black pb-10")}>Theme</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Theme</Text>
           </TouchableOpacity>
         </View>
         <View style={tw("flex-row items-center justify-center px-5")}>
           <TouchableOpacity
             onPress={handleSignOut}
           >
-            <Text style={tw("text-2xl text-black pb-10")}>log out</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Mon-Cheri" }]}>log out</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

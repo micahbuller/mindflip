@@ -7,26 +7,25 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
-import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import { addCard } from "../services/cardHelper";
 
 export default function Home({ navigation }) {
-
   const { user } = useContext(AuthenticatedUserContext);
-  const [truth, setTruth] = useState('')
-  const [lie, setLie] = useState('')
+  const [truth, setTruth] = useState("");
+  const [lie, setLie] = useState("");
 
-  function sendCard(){
-    if(truth != '' && lie != ''){
-      addCard(user.email, truth, lie)
-      setLie('')
-      setTruth('')
-      Alert.alert("Card added.")
-    }else{
-      Alert.alert("You haven't entered anything yet. Try looking deeper.")
+  function sendCard() {
+    if (truth != "" && lie != "") {
+      addCard(user.email, truth, lie);
+      setLie("");
+      setTruth("");
+      Alert.alert("Card added.");
+    } else {
+      Alert.alert("You haven't entered anything yet. Try looking deeper.");
     }
   }
 
@@ -47,7 +46,7 @@ export default function Home({ navigation }) {
                 navigation.navigate("Menu");
               }}
             >
-              <Text style={tw("text-2xl text-black")}>#</Text>
+              <Text style={[tw("text-2xl text-black"), { fontFamily: "Nanum-Gothic" }]}>#</Text>
             </TouchableOpacity>
           </View>
 
@@ -59,7 +58,7 @@ export default function Home({ navigation }) {
                 )}
               >
                 <TextInput
-                  style={tw("mx-5 text-lg font-bold")}
+                  style={[tw("mx-5 text-lg font-bold"), { fontFamily: "Nanum-Gothic" },]}
                   placeholder="What have you been telling yourself?"
                   value={lie}
                   onChangeText={setLie}
@@ -72,7 +71,7 @@ export default function Home({ navigation }) {
                 )}
               >
                 <TextInput
-                  style={tw("mx-5 text-lg font-bold")}
+                  style={[tw("mx-5 text-lg font-bold"), { fontFamily: "Nanum-Gothic" },]}
                   placeholder="Tell yourself the truth..."
                   value={truth}
                   onChangeText={setTruth}
@@ -81,10 +80,13 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <View style={tw("flex-row justify-end")}>
-              <TouchableOpacity
-                onPress={sendCard}
-              >
-                <Text style={tw("pt-5 font-bold text-black")}>
+              <TouchableOpacity onPress={sendCard}>
+                <Text
+                  style={[
+                    tw("text-lg pt-5 text-black"),
+                    { fontFamily: "Nanum-Gothic" },
+                  ]}
+                >
                   put it in your stack
                 </Text>
               </TouchableOpacity>
@@ -97,14 +99,22 @@ export default function Home({ navigation }) {
                 navigation.navigate("LearnMore");
               }}
             >
-              <Text style={tw("text-2xl text-black")}>learn more</Text>
+              <Text
+                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+              >
+                learn more
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("YourDeck");
               }}
             >
-              <Text style={tw("text-2xl text-black")}>your cards</Text>
+              <Text
+                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+              >
+                your cards
+              </Text>
             </TouchableOpacity>
           </View>
         </SafeAreaView>

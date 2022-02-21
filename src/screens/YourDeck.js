@@ -48,7 +48,7 @@ const YourDeck = ({ navigation }) => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={tw("text-2xl text-black")}>back</Text>
+            <Text style={[tw("text-2xl text-black"), { fontFamily: "Nanum-Gothic" }]}>back</Text>
           </TouchableOpacity>
         </View>
 
@@ -75,12 +75,12 @@ const YourDeck = ({ navigation }) => {
                     ]}
                   >
                     <View style={tw("flex-1 pb-5 px-5 justify-end items-end")}>
-                      <Text style={tw("font-bold text-2xl line-through text-center")}>
+                      <Text style={[tw("font-bold text-2xl line-through text-center"), { fontFamily: "Nanum-Gothic" }]}>
                         {card?.lie}
                       </Text>
                     </View>
                     <View style={tw("flex-1 pt-5 px-5")}>
-                      <Text style={tw("font-bold text-2xl text-center")}>
+                      <Text style={[tw("font-bold text-2xl text-center"), { fontFamily: "Nanum-Gothic" }]}>
                         {card?.truth}
                       </Text>
                     </View>
@@ -91,7 +91,7 @@ const YourDeck = ({ navigation }) => {
                           console.log("Pressed");
                         }}
                       >
-                        <Text style={tw("pb-5 font-bold text-black opacity-25")}>
+                        <Text style={[tw("pb-5 font-bold text-black opacity-25"), { fontFamily: "Nanum-Gothic" }]}>
                           edit
                         </Text>
                       </TouchableOpacity>
