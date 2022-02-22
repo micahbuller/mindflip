@@ -38,7 +38,7 @@ const LearnMore = ({ navigation }) => {
           ),
         ]}
       >
-        <Text style={[tw("text-xl text-black"), { fontFamily: "Nanum-Gothic" }]}>{item.title}</Text>
+        <Text style={[tw("text-xl text-black"), { fontFamily: "Mon-Cheri" }]}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
