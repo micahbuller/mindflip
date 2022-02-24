@@ -88,7 +88,7 @@ const YourDeck = ({ navigation }) => {
                     <View style={tw("flex-row justify-end")}>
                       <TouchableOpacity
                         onPress={() => {
-                          console.log("Pressed");
+                          navigation.navigate('CardEditor')
                         }}
                       >
                         <Text style={[tw("pb-5 font-bold text-black opacity-25"), { fontFamily: "Nanum-Gothic" }]}>
