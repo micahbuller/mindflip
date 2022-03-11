@@ -26,8 +26,9 @@ export default function Home({ navigation }) {
   const [lie, setLie] = useState("");
   const [cards, setCards] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [refreshCards, setRefreshCards] = useState(true);
   const db = getFirestore();
+  
 
   useEffect(
     () =>
@@ -41,7 +42,7 @@ export default function Home({ navigation }) {
             }))
           )
       ),
-    [db]
+    [db, refreshCards]
   );
 
   function sendCard() {
@@ -151,6 +152,7 @@ export default function Home({ navigation }) {
           <Swiper
             infinite={true}
             cards={cards}
+            cardIndex={0}
             renderCard={(card) =>
               card ? (
                 <View
@@ -226,9 +228,7 @@ export default function Home({ navigation }) {
                     ]}
                   >
                       <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("CardEditor");
-                        }}
+                        onPress={setRefreshCards(!refreshCards)}
                         style={tw('flex-1 justify-center items-center')}
                       >
                         <Text style={tw('text-2xl font-bold')}>All Out</Text>
@@ -245,13 +245,9 @@ export default function Home({ navigation }) {
                 </View>
               )
             }
-            onSwiped={(cardIndex) => {
-              console.log(cardIndex);
-            }}
             onSwipedAll={() => {
               console.log("onSwipedAll");
             }}
-            cardIndex={0}
             verticalSwipe={false}
             backgroundColor={"rgba(52, 52, 52, 0)"}
             stackSize={3}
