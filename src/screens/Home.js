@@ -3,13 +3,11 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   TextInput,
   KeyboardAvoidingView,
   Alert,
   StyleSheet,
   Modal,
-  Pressable,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import { collection, onSnapshot, query } from "@firebase/firestore";
@@ -49,9 +47,10 @@ export default function Home({ navigation }) {
   function sendCard() {
     if (truth != "" && lie != "") {
       addCard(user.email, truth, lie);
+      Alert.alert("Card added.");
+      setModalVisible(false);
       setLie("");
       setTruth("");
-      Alert.alert("Card added.");
     } else {
       Alert.alert("You haven't entered anything yet. Try looking deeper.");
     }
@@ -65,7 +64,7 @@ export default function Home({ navigation }) {
     >
       {/* Beginning of Modal for Entering Card Info */}
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -79,7 +78,7 @@ export default function Home({ navigation }) {
         >
           <TouchableOpacity
             style={tw(
-              "flex-1 justify-center items-center bg-black bg-opacity-80 rounded-3xl px-2"
+              "flex-1 justify-center items-center bg-black bg-opacity-80 px-2"
             )}
             activeOpacity={1}
             onPress={() => {
@@ -87,6 +86,19 @@ export default function Home({ navigation }) {
             }}
           >
             <View style={tw("w-full h-1/2 bg-gray-100 rounded-2xl py-5")}>
+              <TouchableOpacity
+                onPress={sendCard}
+                activeOpacity={1}
+                style={tw(
+                  "absolute -bottom-8 right-5 bg-black rounded-full p-5"
+                )}
+              >
+                <Text
+                  style={[tw("text-white"), { fontFamily: "Nanum-Gothic" }]}
+                >
+                  add
+                </Text>
+              </TouchableOpacity>
               <View style={tw("flex-1 justify-start")}>
                 <TextInput
                   style={[
@@ -139,8 +151,8 @@ export default function Home({ navigation }) {
           <Swiper
             infinite={true}
             cards={cards}
-            renderCard={(card) => {
-              return (
+            renderCard={(card) =>
+              card ? (
                 <View
                   style={[
                     tw(
@@ -196,8 +208,43 @@ export default function Home({ navigation }) {
                     </View>
                   </BlurView>
                 </View>
-              );
-            }}
+              ) : (
+                <View
+                  style={[
+                    tw(
+                      "relative h-3/4 rounded-xl justify-center items-center overflow-hidden"
+                    ),
+                    styles.cardShadow,
+                  ]}
+                >
+                  <BlurView
+                    intensity={80}
+                    tint="light"
+                    style={[
+                      tw("relative justify-center items-center"),
+                      { flex: 1, height: "75%", width: "100%" },
+                    ]}
+                  >
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate("CardEditor");
+                        }}
+                        style={tw('flex-1 justify-center items-center')}
+                      >
+                        <Text style={tw('text-2xl font-bold')}>All Out</Text>
+                        <Text
+                          style={[
+                            tw("pb-5 font-bold text-black opacity-25"),
+                            { fontFamily: "Nanum-Gothic" },
+                          ]}
+                        >
+                          Refresh
+                        </Text>
+                      </TouchableOpacity>
+                  </BlurView>
+                </View>
+              )
+            }
             onSwiped={(cardIndex) => {
               console.log(cardIndex);
             }}
@@ -211,7 +258,9 @@ export default function Home({ navigation }) {
           ></Swiper>
         </View>
 
-        <View style={tw("flex-row h-1/4 items-center justify-between px-5")}>
+        <View
+          style={tw("flex flex-row items-center justify-between px-5 pb-5")}
+        >
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("LearnMore");
