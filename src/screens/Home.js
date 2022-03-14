@@ -28,7 +28,6 @@ export default function Home({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshCards, setRefreshCards] = useState(true);
   const db = getFirestore();
-  
 
   useEffect(
     () =>
@@ -36,18 +35,37 @@ export default function Home({ navigation }) {
         query(collection(db, "users", user.email, "cards")),
         (snapshot) =>
           setCards(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
+            snapshot.docs
+              .map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }))
+              .sort(() => Math.random() - 0.5)
           )
       ),
-    [db, refreshCards]
+    [db]
   );
+
+  useEffect(() => {
+    console.log(cards)
+  }, [cards]);
+
+  function addCardToLocalCards(){
+    const newCard = {
+      "id": truth,
+      "lie": lie,
+      "truth": truth,
+    }
+
+    var tempCards = cards;
+    cards.push(newCard);
+    setCards(tempCards);
+  }
 
   function sendCard() {
     if (truth != "" && lie != "") {
       addCard(user.email, truth, lie);
+      addCardToLocalCards();
       Alert.alert("Card added.");
       setModalVisible(false);
       setLie("");
@@ -150,9 +168,12 @@ export default function Home({ navigation }) {
 
         <View style={tw("relative flex-1")}>
           <Swiper
-            infinite={true}
+            infinite={false}
             cards={cards}
             cardIndex={0}
+            verticalSwipe={false}
+            backgroundColor={"rgba(52, 52, 52, 0)"}
+            stackSize={3}
             renderCard={(card) =>
               card ? (
                 <View
@@ -227,30 +248,23 @@ export default function Home({ navigation }) {
                       { flex: 1, height: "75%", width: "100%" },
                     ]}
                   >
-                      <TouchableOpacity
-                        onPress={setRefreshCards(!refreshCards)}
-                        style={tw('flex-1 justify-center items-center')}
+                    <TouchableOpacity
+                      style={tw("flex-1 justify-center items-center")}
+                    >
+                      <Text style={tw("text-2xl font-bold")}>All Out</Text>
+                      <Text
+                        style={[
+                          tw("pb-5 font-bold text-black opacity-25"),
+                          { fontFamily: "Nanum-Gothic" },
+                        ]}
                       >
-                        <Text style={tw('text-2xl font-bold')}>All Out</Text>
-                        <Text
-                          style={[
-                            tw("pb-5 font-bold text-black opacity-25"),
-                            { fontFamily: "Nanum-Gothic" },
-                          ]}
-                        >
-                          Refresh
-                        </Text>
-                      </TouchableOpacity>
+                        Refresh
+                      </Text>
+                    </TouchableOpacity>
                   </BlurView>
                 </View>
               )
             }
-            onSwipedAll={() => {
-              console.log("onSwipedAll");
-            }}
-            verticalSwipe={false}
-            backgroundColor={"rgba(52, 52, 52, 0)"}
-            stackSize={3}
           ></Swiper>
         </View>
 
