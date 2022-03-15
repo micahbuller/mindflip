@@ -64,8 +64,6 @@ export default function Home({ navigation }) {
 
   function shuffleCards() {
     setCards(cards.sort(() => Math.random() - 0.5));
-    console.log(cards);
-    console.log(cardIndex)
   }
 
   function sendCard() {
@@ -155,20 +153,6 @@ export default function Home({ navigation }) {
 
       <SafeAreaView style={tw(`flex-1 `)}>
         <View style={tw("flex-row items-center justify-end px-5")}>
-        <TouchableOpacity
-            onPress={() => {
-              shuffleCards()
-            }}
-          >
-            <Text
-              style={[
-                tw("text-2xl text-black"),
-                { fontFamily: "Nanum-Gothic" },
-              ]}
-            >
-              Y
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Menu");
