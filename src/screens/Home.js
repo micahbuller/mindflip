@@ -19,6 +19,7 @@ import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import { addCard } from "../services/cardHelper";
+import MySwiper from "../components/MySwiper";
 
 export default function Home({ navigation }) {
   const { user } = useContext(AuthenticatedUserContext);
@@ -26,7 +27,7 @@ export default function Home({ navigation }) {
   const [lie, setLie] = useState("");
   const [cards, setCards] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [refreshCards, setRefreshCards] = useState(true);
+  const [cardIndex, setCardIndex] = useState(0);
   const db = getFirestore();
 
   useEffect(
@@ -47,19 +48,24 @@ export default function Home({ navigation }) {
   );
 
   useEffect(() => {
-    console.log(cards)
   }, [cards]);
 
-  function addCardToLocalCards(){
+  function addCardToLocalCards() {
     const newCard = {
-      "id": truth,
-      "lie": lie,
-      "truth": truth,
-    }
+      id: truth,
+      lie: lie,
+      truth: truth,
+    };
 
     var tempCards = cards;
     cards.push(newCard);
     setCards(tempCards);
+  }
+
+  function shuffleCards() {
+    setCards(cards.sort(() => Math.random() - 0.5));
+    console.log(cards);
+    console.log(cardIndex)
   }
 
   function sendCard() {
@@ -87,7 +93,6 @@ export default function Home({ navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -150,6 +155,20 @@ export default function Home({ navigation }) {
 
       <SafeAreaView style={tw(`flex-1 `)}>
         <View style={tw("flex-row items-center justify-end px-5")}>
+        <TouchableOpacity
+            onPress={() => {
+              shuffleCards()
+            }}
+          >
+            <Text
+              style={[
+                tw("text-2xl text-black"),
+                { fontFamily: "Nanum-Gothic" },
+              ]}
+            >
+              Y
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Menu");
@@ -167,105 +186,7 @@ export default function Home({ navigation }) {
         </View>
 
         <View style={tw("relative flex-1")}>
-          <Swiper
-            infinite={false}
-            cards={cards}
-            cardIndex={0}
-            verticalSwipe={false}
-            backgroundColor={"rgba(52, 52, 52, 0)"}
-            stackSize={3}
-            renderCard={(card) =>
-              card ? (
-                <View
-                  style={[
-                    tw(
-                      "relative h-3/4 rounded-xl justify-center items-center overflow-hidden"
-                    ),
-                    styles.cardShadow,
-                  ]}
-                >
-                  <BlurView
-                    intensity={80}
-                    tint="light"
-                    style={[
-                      tw("relative justify-center items-center"),
-                      { flex: 1, height: "75%", width: "100%" },
-                    ]}
-                  >
-                    <View style={tw("flex-1 pb-5 px-5 justify-end items-end")}>
-                      <Text
-                        style={[
-                          tw("font-bold text-2xl line-through text-center"),
-                          { fontFamily: "Nanum-Gothic" },
-                        ]}
-                      >
-                        {card?.lie}
-                      </Text>
-                    </View>
-                    <View style={tw("flex-1 pt-5 px-5")}>
-                      <Text
-                        style={[
-                          tw("font-bold text-2xl text-center"),
-                          { fontFamily: "Nanum-Gothic" },
-                        ]}
-                      >
-                        {card?.truth}
-                      </Text>
-                    </View>
-
-                    <View style={tw("flex-row justify-end")}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate("CardEditor");
-                        }}
-                      >
-                        <Text
-                          style={[
-                            tw("pb-5 font-bold text-black opacity-25"),
-                            { fontFamily: "Nanum-Gothic" },
-                          ]}
-                        >
-                          edit
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </BlurView>
-                </View>
-              ) : (
-                <View
-                  style={[
-                    tw(
-                      "relative h-3/4 rounded-xl justify-center items-center overflow-hidden"
-                    ),
-                    styles.cardShadow,
-                  ]}
-                >
-                  <BlurView
-                    intensity={80}
-                    tint="light"
-                    style={[
-                      tw("relative justify-center items-center"),
-                      { flex: 1, height: "75%", width: "100%" },
-                    ]}
-                  >
-                    <TouchableOpacity
-                      style={tw("flex-1 justify-center items-center")}
-                    >
-                      <Text style={tw("text-2xl font-bold")}>All Out</Text>
-                      <Text
-                        style={[
-                          tw("pb-5 font-bold text-black opacity-25"),
-                          { fontFamily: "Nanum-Gothic" },
-                        ]}
-                      >
-                        Refresh
-                      </Text>
-                    </TouchableOpacity>
-                  </BlurView>
-                </View>
-              )
-            }
-          ></Swiper>
+          <MySwiper cards={cards} cardIndex={cardIndex}/>
         </View>
 
         <View
@@ -294,16 +215,3 @@ export default function Home({ navigation }) {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  cardShadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
-  },
-});
