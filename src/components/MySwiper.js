@@ -1,10 +1,13 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Swiper from "react-native-deck-swiper";
 import tw from "tailwind-rn";
+import { useNavigation } from "@react-navigation/native";
 
 export default function MySwiper({ cards, cardIndex }) {
+  const navigation = useNavigation();
+
   const [myKey, setMyKey] = useState(0);
   return (
     <Swiper
@@ -56,9 +59,9 @@ export default function MySwiper({ cards, cardIndex }) {
 
               <View style={tw("flex-row justify-end")}>
                 <TouchableOpacity
-                // onPress={() => {
-                //   navigation.navigate("CardEditor");
-                // }}
+                  onPress={() => {
+                    navigation.navigate("CardEditor", { card });
+                  }}
                 >
                   <Text
                     style={[
