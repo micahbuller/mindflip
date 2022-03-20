@@ -8,10 +8,10 @@ import { useNavigation } from "@react-navigation/native";
 export default function MySwiper({ cards, cardIndex }) {
   const navigation = useNavigation();
 
-  const [myKey, setMyKey] = useState(0);
+const [key, setKey] = useState(0)
   return (
     <Swiper
-      key={myKey}
+    key={key}
       infinite={true}
       cards={cards}
       cardIndex={0}
@@ -94,7 +94,7 @@ export default function MySwiper({ cards, cardIndex }) {
             >
               <TouchableOpacity
                 onPress={() => {
-                  setMyKey(myKey + 1);
+                  setKey(key + 1)
                 }}
                 style={tw("flex-1 justify-center items-center")}
               >

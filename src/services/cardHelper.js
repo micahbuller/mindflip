@@ -1,6 +1,10 @@
-import { setDoc, updateDoc, doc, getFirestore, addDoc, collection } from "@firebase/firestore";
+import { updateDoc, doc, getFirestore, addDoc, collection } from "@firebase/firestore";
+import {
+  Alert,
+} from "react-native";
 
 const db = getFirestore();
+
 
 export function addCard(email, truth, lie) {
   addDoc(collection(db, "users", email, "cards"), {
@@ -10,9 +14,10 @@ export function addCard(email, truth, lie) {
 }
 
 export function updateCard(email, card, truth, lie) {
-  console.log(card.id)
   updateDoc(doc(db, "users", email, "cards", card.id), {
     truth: truth,
     lie: lie,
+  }).then(function(){
+    Alert.alert("Card Successfully Edited.")
   });
 }
