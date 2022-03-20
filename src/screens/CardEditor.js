@@ -51,7 +51,7 @@ const CardEditor = () => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                updateCard(user.email, truth, lie, oldTruth)
+                updateCard(user.email, card, truth, lie)
               }}
             >
               <Text
