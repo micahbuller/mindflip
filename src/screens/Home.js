@@ -6,15 +6,12 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Alert,
-  StyleSheet,
   Modal,
 } from "react-native";
-import { BlurView } from "expo-blur";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 import React, { useContext, useState, useEffect } from "react";
-import Swiper from "react-native-deck-swiper";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
