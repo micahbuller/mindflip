@@ -7,7 +7,12 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from "react-native";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
+import {
+  CheckCircleIcon,
+  ArrowCircleLeftIcon,
+  TrashIcon,
+} from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { updateCard } from "../services/cardHelper";
@@ -30,7 +35,7 @@ const CardEditor = () => {
     >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={tw('flex-1')}
+        style={tw("flex-1")}
         keyboardVerticalOffset={10}
       >
         <SafeAreaView style={tw("flex-1 mx-5")}>
@@ -40,31 +45,28 @@ const CardEditor = () => {
                 navigation.goBack();
               }}
             >
-              <Text
-                style={[
-                  tw("text-2xl text-black"),
-                  { fontFamily: "Nanum-Gothic" },
-                ]}
-              >
-                {"<-"}
-              </Text>
+              <ArrowCircleLeftIcon style={[tw("text-black")]} />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                updateCard(user.email, card, truth, lie)
-              }}
-            >
-              <Text
-                style={[
-                  tw("text-2xl text-black"),
-                  { fontFamily: "Nanum-Gothic" },
-                ]}
+            <View style={tw("flex-row")}>
+              <TouchableOpacity
+                onPress={() => {
+                  updateCard(user.email, card, truth, lie);
+                }}
               >
-                {"UPDATE"}
-              </Text>
-            </TouchableOpacity>
+                <CheckCircleIcon style={tw("text-black mr-5")} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  //DELETE
+                }}
+              >
+                <TrashIcon style={tw("text-black")} />
+              </TouchableOpacity>
+            </View>
           </View>
-          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>TRUTH</Text>
+          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+            TRUTH
+          </Text>
           <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
             <TextInput
               style={tw("flex-1 pl-2 mr-2")}
@@ -75,7 +77,9 @@ const CardEditor = () => {
               multiline
             />
           </View>
-          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>LIE</Text>
+          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+            LIE
+          </Text>
 
           <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
             <TextInput

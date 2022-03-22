@@ -8,6 +8,9 @@ import {
   Alert,
   Modal,
 } from "react-native";
+import {
+  MenuIcon
+} from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -155,14 +158,7 @@ export default function Home({ navigation }) {
               navigation.navigate("Menu");
             }}
           >
-            <Text
-              style={[
-                tw("text-2xl text-black"),
-                { fontFamily: "Nanum-Gothic" },
-              ]}
-            >
-              #
-            </Text>
+            <MenuIcon style={tw('text-black')} />
           </TouchableOpacity>
         </View>
 
