@@ -160,27 +160,29 @@ export default function Home({ navigation }) {
           <MySwiper cards={cards} />
         </View>
 
-        <View
-          style={tw("flex flex-row items-center justify-between px-5 pb-5")}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("LearnMore");
-            }}
+        <View style={tw("flex flex-col justify-center py-8")}>
+          <View
+            style={tw("flex flex-row items-center justify-between px-5 pb-5")}
           >
-            <Text
-              style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("LearnMore");
+              }}
             >
-              learn more
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text
-              style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
-            >
-              add card
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+              >
+                learn more
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Text
+                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+              >
+                add card
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     </ImageBackground>
