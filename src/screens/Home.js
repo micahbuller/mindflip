@@ -8,9 +8,7 @@ import {
   Alert,
   Modal,
 } from "react-native";
-import {
-  MenuIcon
-} from "react-native-heroicons/solid";
+import { MenuIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -27,7 +25,6 @@ export default function Home({ navigation }) {
   const [lie, setLie] = useState("");
   const [cards, setCards] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [cardIndex, setCardIndex] = useState(0);
   const db = getFirestore();
 
   useEffect(
@@ -46,9 +43,6 @@ export default function Home({ navigation }) {
       ),
     [db]
   );
-
-  useEffect(() => {
-  }, [cards]);
 
   function addCardToLocalCards() {
     const newCard = {
@@ -158,12 +152,12 @@ export default function Home({ navigation }) {
               navigation.navigate("Menu");
             }}
           >
-            <MenuIcon style={tw('text-black')} />
+            <MenuIcon style={tw("text-black")} />
           </TouchableOpacity>
         </View>
 
         <View style={tw("relative flex-1")}>
-          <MySwiper cards={cards} cardIndex={cardIndex}/>
+          <MySwiper cards={cards} />
         </View>
 
         <View

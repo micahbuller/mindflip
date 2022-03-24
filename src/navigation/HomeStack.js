@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from "../../src/screens/Home";
 import LearnMore from "../../src/screens/LearnMore";
-import YourDeck from "../../src/screens/YourDeck";
 import Menu from "../../src/screens/Menu";
 import CardEditor from '../screens/CardEditor';
 
@@ -22,11 +21,7 @@ export default function HomeStack() {
           component={LearnMore}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="YourDeck"
-          component={YourDeck}
-          options={{ headerShown: false }}
-        />
+        
         <Stack.Screen
           name="Menu"
           component={Menu}

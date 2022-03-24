@@ -1,4 +1,4 @@
-import { updateDoc, doc, getFirestore, addDoc, collection } from "@firebase/firestore";
+import { updateDoc, doc, getFirestore, addDoc, collection, deleteDoc } from "@firebase/firestore";
 import {
   Alert,
 } from "react-native";
@@ -19,5 +19,11 @@ export function updateCard(email, card, truth, lie) {
     lie: lie,
   }).then(function(){
     Alert.alert("Card Successfully Edited.")
+  });
+}
+
+export function deleteCard(email, card, truth, lie) {
+  deleteDoc(doc(db, "users", email, "cards", card.id)).then(function(){
+    Alert.alert("Card Successfully Deleted.")
   });
 }

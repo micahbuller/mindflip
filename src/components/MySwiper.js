@@ -1,16 +1,22 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
 import { BlurView } from "expo-blur";
 import React, { useState } from "react";
 import Swiper from "react-native-deck-swiper";
 import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
-export default function MySwiper({ cards, cardIndex }) {
+export default function MySwiper({ cards }) {
   const navigation = useNavigation();
+  const [key, setKey] = useState(0);
 
-const [key, setKey] = useState(0)
   return (
     <Swiper
-    key={key}
+      key={key}
       infinite={true}
       cards={cards}
       cardIndex={0}
@@ -93,18 +99,17 @@ const [key, setKey] = useState(0)
             >
               <TouchableOpacity
                 onPress={() => {
-                  setKey(key + 1)
+                  setKey(key + 1);
                 }}
                 style={tw("flex-1 justify-center items-center")}
               >
-                <Text style={tw("text-2xl font-bold")}>All Out</Text>
                 <Text
                   style={[
                     tw("pb-5 font-bold text-black opacity-25"),
                     { fontFamily: "Nanum-Gothic" },
                   ]}
                 >
-                  Refresh
+                  Refresh Or Add New Cards!
                 </Text>
               </TouchableOpacity>
             </BlurView>

@@ -15,7 +15,7 @@ import {
 } from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { updateCard } from "../services/cardHelper";
+import { updateCard, deleteCard } from "../services/cardHelper";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 
 const CardEditor = () => {
@@ -25,7 +25,6 @@ const CardEditor = () => {
   const { card } = params;
   const [truth, setTruth] = useState(card.truth);
   const [lie, setLie] = useState(card.lie);
-  const [oldTruth, setOldTruth] = useState(card.truth);
 
   return (
     <ImageBackground
@@ -57,7 +56,8 @@ const CardEditor = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  //DELETE
+                  deleteCard(user.email, card, truth, lie);
+                  navigation.goBack();
                 }}
               >
                 <TrashIcon style={tw("text-black")} />
