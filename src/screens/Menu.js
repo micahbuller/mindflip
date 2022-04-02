@@ -41,7 +41,7 @@ const Menu = ({ navigation }) => {
         <View style={tw("flex-1 justify-center items-center")}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Home");
+              navigation.navigate("Account");
             }}
           >
             <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Account</Text>
@@ -51,22 +51,9 @@ const Menu = ({ navigation }) => {
               navigation.navigate("Home");
             }}
           >
-            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Reminders</Text>
+            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Notifications</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Widget</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Theme</Text>
-          </TouchableOpacity>
+        
         </View>
         <View style={tw("flex-row items-center justify-center px-5")}>
           <TouchableOpacity
