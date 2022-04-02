@@ -1,3 +1,4 @@
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,14 +8,14 @@ import {
   KeyboardAvoidingView,
   Alert,
   Modal,
+  ImageBackground,
+  Image,
 } from "react-native";
 import { MenuIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
-import React, { useContext, useState, useEffect } from "react";
 import tw from "tailwind-rn";
-import { ImageBackground } from "react-native";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import { addCard } from "../services/cardHelper";
 import MySwiper from "../components/MySwiper";
@@ -54,10 +55,6 @@ export default function Home({ navigation }) {
     var tempCards = cards;
     cards.push(newCard);
     setCards(tempCards);
-  }
-
-  function shuffleCards() {
-    setCards(cards.sort(() => Math.random() - 0.5));
   }
 
   function sendCard() {
@@ -156,8 +153,23 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View style={tw("relative flex-1")}>
-          <MySwiper cards={cards} />
+        <View style={tw("relative flex-1 items-center justify-center")}>
+          {!cards.length ? (
+            <View
+              style={[
+                tw(
+                  "relative border h-3/4 rounded-xl justify-center items-center"
+                ),
+              ]}
+            >
+              <Image
+                source={require("../assets/no-cards-screen.png")}
+                style={{ height: 300, width: 300 }}
+              />
+            </View>
+          ) : (
+            <MySwiper cards={cards} />
+          )}
         </View>
 
         <View style={tw("flex flex-col justify-center py-8")}>
