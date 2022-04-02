@@ -10,6 +10,7 @@ import {
   Modal,
   ImageBackground,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { MenuIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
@@ -22,28 +23,43 @@ import MySwiper from "../components/MySwiper";
 
 export default function Home({ navigation }) {
   const { user } = useContext(AuthenticatedUserContext);
+  const [noCards, setNoCards] = useState(false)
+  const [cardsLoading, setCardsLoading] = useState(true);
   const [truth, setTruth] = useState("");
   const [lie, setLie] = useState("");
   const [cards, setCards] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const db = getFirestore();
 
-  useEffect(
-    () =>
-      onSnapshot(
+  useEffect(() => {
+
+    async function mapCards(snapshot) {
+      await setCards(snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        .sort(() => Math.random() - 0.5))
+
+        if(!cards.length){
+          setNoCards(true)
+        }
+
+    }
+
+    const fetchCards = async () => {
+      const unsub = await onSnapshot(
         query(collection(db, "users", user.email, "cards")),
         (snapshot) =>
-          setCards(
-            snapshot.docs
-              .map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-              }))
-              .sort(() => Math.random() - 0.5)
-          )
-      ),
-    [db]
-  );
+          mapCards(snapshot)
+      );
+      
+      setCardsLoading(false);
+      return unsub;
+    };
+
+    fetchCards();
+  }, [db]);
 
   function addCardToLocalCards() {
     const newCard = {
@@ -154,7 +170,7 @@ export default function Home({ navigation }) {
         </View>
 
         <View style={tw("relative flex-1 items-center justify-center")}>
-          {!cards.length ? (
+          {!cards.length ? ( noCards ? 
             <View
               style={[
                 tw(
@@ -166,7 +182,7 @@ export default function Home({ navigation }) {
                 source={require("../assets/no-cards-screen.png")}
                 style={{ height: 300, width: 300 }}
               />
-            </View>
+            </View> : <ActivityIndicator size="large" />
           ) : (
             <MySwiper cards={cards} />
           )}
