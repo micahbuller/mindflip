@@ -31,7 +31,7 @@ const SignUp = ({ navigation }) => {
           name: name,
         });
       } else {
-        Alert.alert("Honey, you forgot to fill out everything.");
+        Alert.alert("You forgot to fill out everything.");
       }
     } catch (error) {
       Alert.alert(error.message);
