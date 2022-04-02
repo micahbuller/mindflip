@@ -11,15 +11,7 @@ import Swiper from "react-native-deck-swiper";
 import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
 export default function MySwiper({ cards }) {
-  const [newCards, setNewCards] = useState()
   const navigation = useNavigation();
-  const [key, setKey] = useState(0);
-
-  function shuffleCards() {
-    const tempCards = cards.sort(() => Math.random() - 0.5)
-    setNewCards(tempCards);
-    console.log(tempCards)
-  }
 
   return (
     <Swiper
@@ -105,21 +97,7 @@ export default function MySwiper({ cards }) {
                 { flex: 1, height: "75%", width: "100%" },
               ]}
             >
-              <TouchableOpacity
-                onPress={() => {
-                  shuffleCards()
-                }}
-                style={tw("flex-1 justify-center items-center")}
-              >
-                <Text
-                  style={[
-                    tw("pb-5 font-bold text-black opacity-25"),
-                    { fontFamily: "Nanum-Gothic" },
-                  ]}
-                >
-                  Refresh Or Add New Cards!
-                </Text>
-              </TouchableOpacity>
+              <ActivityIndicator size="large" />
             </BlurView>
           </View>
         )
