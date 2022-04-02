@@ -114,12 +114,12 @@ export default function Home({ navigation }) {
               setModalVisible(!modalVisible);
             }}
           >
-            <View style={tw("w-full h-1/2 bg-gray-100 rounded-2xl py-5")}>
+            <View style={tw("w-full h-3/4 bg-white rounded-2xl py-5")}>
               <TouchableOpacity
                 onPress={sendCard}
                 activeOpacity={1}
                 style={tw(
-                  "absolute -bottom-8 right-5 bg-black rounded-full p-5"
+                  "absolute -bottom-8 right-5 bg-yellow-300 bg-opacity-75 rounded-full p-5"
                 )}
               >
                 <Text

@@ -27,3 +27,7 @@ export function deleteCard(email, card, truth, lie) {
     Alert.alert("Card Successfully Deleted.")
   });
 }
+
+export function deleteDbUser(email) {
+  deleteDoc(doc(db, "users", email)).catch((error) => Alert.alert(error));
+}
