@@ -64,6 +64,21 @@ const CardEditor = () => {
               </TouchableOpacity>
             </View>
           </View>
+          
+          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+            LIE
+          </Text>
+          <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
+            <TextInput
+              style={tw("flex-1 pl-2 mr-2")}
+              autoCapitalize="none"
+              clearButtonMode="always"
+              value={lie}
+              onChangeText={(text) => setLie(text)}
+              multiline
+            />
+          </View>
+
           <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
             TRUTH
           </Text>
@@ -74,20 +89,6 @@ const CardEditor = () => {
               clearButtonMode="always"
               value={truth}
               onChangeText={(text) => setTruth(text)}
-              multiline
-            />
-          </View>
-          <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
-            LIE
-          </Text>
-
-          <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
-            <TextInput
-              style={tw("flex-1 pl-2 mr-2")}
-              autoCapitalize="none"
-              clearButtonMode="always"
-              value={lie}
-              onChangeText={(text) => setLie(text)}
               multiline
             />
           </View>
