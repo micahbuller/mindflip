@@ -64,11 +64,13 @@ const SignUp = ({ navigation }) => {
             </Text>
           </View>
           <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
+          
+
             <View
               style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
-                style={[tw("p-5 flex-1 text-lg font-bold"), { fontFamily: "Nanum-Gothic" }]}
+                style={tw("text-sm font-bold p-5 w-full h-full")}
                 placeholder="Full Name"
                 onChangeText={(name) => setName(name)}
               />
@@ -78,7 +80,7 @@ const SignUp = ({ navigation }) => {
               style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
-                style={[tw("p-5 flex-1 text-lg font-bold"), { fontFamily: "Nanum-Gothic" }]}
+                style={[tw("p-5 flex-1 text-sm font-bold"), { fontFamily: "Nanum-Gothic" }]}
                 placeholder="Email"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -86,14 +88,13 @@ const SignUp = ({ navigation }) => {
               />
             </View>
             <View
-              style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
+              style={tw("bg-gray-50 flex-row w-full rounded-xl text-sm mb-5")}
             >
               <TextInput
-                style={[tw("p-5 flex-1 text-lg font-bold"), { fontFamily: "Nanum-Gothic" }]}
+                style={[tw("p-5 flex-1 text-sm font-bold"), { fontFamily: "Nanum-Gothic" }]}
                 placeholder="Password"
                 value={password}
                 onChangeText={(password) => setPassword(password)}
-                secureTextEntry={true}
               />
             </View>
             <TouchableOpacity style={tw("w-full")} onPress={onHandleSignup}>

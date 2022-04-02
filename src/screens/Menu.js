@@ -3,7 +3,7 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  TextInput,
+  Alert,
 } from "react-native";
 import React from "react";
 import tw from "tailwind-rn";
@@ -48,7 +48,7 @@ const Menu = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Home");
+              Alert.alert("Friendly notifications are coming soon!")
             }}
           >
             <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Nanum-Gothic" }]}>Notifications</Text>
@@ -59,7 +59,7 @@ const Menu = ({ navigation }) => {
           <TouchableOpacity
             onPress={handleSignOut}
           >
-            <Text style={[tw("text-2xl text-black pb-10"), { fontFamily: "Mon-Cheri" }]}>log out</Text>
+            <Text style={[tw("text-2xl text-black py-10"), { fontFamily: "Mon-Cheri" }]}>LOG OUT</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

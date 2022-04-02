@@ -69,7 +69,7 @@ const LogIn = ({ navigation }) => {
               style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
-                style={tw("p-5 text-lg flex-1 font-bold")}
+                style={tw("text-sm font-bold p-5 w-full h-full")}
                 placeholder="Email"
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -80,7 +80,7 @@ const LogIn = ({ navigation }) => {
               style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
               <TextInput
-                style={tw("p-5 text-lg flex-1 font-bold")}
+                style={tw("text-sm font-bold p-5 w-full h-full")}
                 placeholder="Password"
                 secureTextEntry={true}
                 multiline
