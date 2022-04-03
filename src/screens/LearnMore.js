@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
+import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
 
 const DATA = [
   {
@@ -34,11 +35,13 @@ const LearnMore = ({ navigation }) => {
       <View
         style={[
           tw(
-            "flex-row bg-white opacity-50 rounded-lg mx-10 my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
+            "flex-row bg-white opacity-50 rounded-lg mx-5 my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
           ),
         ]}
       >
-        <Text style={[tw("text-xl text-black"), { fontFamily: "Mon-Cheri" }]}>{item.title}</Text>
+        <Text style={[tw("text-xl text-black"), { fontFamily: "Mon-Cheri" }]}>
+          {item.title}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -50,17 +53,18 @@ const LearnMore = ({ navigation }) => {
       style={{ flex: 1, justifyContent: "center" }}
     >
       <SafeAreaView style={tw(`flex-1`)}>
-        <View style={tw("flex-row items-center justify-start px-5")}>
+        <View style={tw("flex-row items-center justify-start px-5 pt-2")}>
           <TouchableOpacity
+            style={tw("h-12 w-12 items-start justify-center")}
             onPress={() => {
-              navigation.navigate("Home");
+              navigation.goBack();
             }}
           >
-            <Text style={[tw("text-2xl text-black"), { fontFamily: "Nanum-Gothic" }]}>back</Text>
+            <ArrowCircleLeftIcon style={[tw("text-black")]} />
           </TouchableOpacity>
         </View>
 
-        <View style={tw("flex-1 py-10")}>
+        <View style={tw("flex-1 py-5")}>
           <FlatList
             data={DATA}
             keyExtractor={(item) => item.id}
@@ -69,7 +73,11 @@ const LearnMore = ({ navigation }) => {
         </View>
 
         <View style={tw("flex-1 items-center justify-start px-5")}>
-          <Text style={[tw("font-bold text-xl"), { fontFamily: "Nanum-Gothic" }]}>More to come</Text>
+          <Text
+            style={[tw("font-bold text-xl"), { fontFamily: "Nanum-Gothic" }]}
+          >
+            More to come
+          </Text>
         </View>
       </SafeAreaView>
     </ImageBackground>

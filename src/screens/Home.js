@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Image,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { MenuIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
@@ -23,7 +24,7 @@ import MySwiper from "../components/MySwiper";
 
 export default function Home({ navigation }) {
   const { user } = useContext(AuthenticatedUserContext);
-  const [noCards, setNoCards] = useState(false)
+  const [noCards, setNoCards] = useState(false);
   const [cardsLoading, setCardsLoading] = useState(true);
   const [truth, setTruth] = useState("");
   const [lie, setLie] = useState("");
@@ -32,28 +33,27 @@ export default function Home({ navigation }) {
   const db = getFirestore();
 
   useEffect(() => {
-
     async function mapCards(snapshot) {
-      await setCards(snapshot.docs
-        .map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-        .sort(() => Math.random() - 0.5))
+      await setCards(
+        snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+          .sort(() => Math.random() - 0.5)
+      );
 
-        if(!cards.length){
-          setNoCards(true)
-        }
-
+      if (!cards.length) {
+        setNoCards(true);
+      }
     }
 
     const fetchCards = async () => {
       const unsub = await onSnapshot(
         query(collection(db, "users", user.email, "cards")),
-        (snapshot) =>
-          mapCards(snapshot)
+        (snapshot) => mapCards(snapshot)
       );
-      
+
       setCardsLoading(false);
       return unsub;
     };
@@ -158,9 +158,10 @@ export default function Home({ navigation }) {
       </Modal>
       {/* End of Modal for Entering Card Info */}
 
-      <SafeAreaView style={tw(`flex-1 `)}>
-        <View style={tw("flex-row items-center justify-end px-5")}>
+      <SafeAreaView style={tw(`flex-1`)}>
+        <View style={tw("flex-row items-center justify-end px-5 pt-2")}>
           <TouchableOpacity
+            style={tw("h-12 w-12 items-end justify-center")}
             onPress={() => {
               navigation.navigate("Menu");
             }}
@@ -170,19 +171,23 @@ export default function Home({ navigation }) {
         </View>
 
         <View style={tw("relative flex-1 items-center justify-center")}>
-          {!cards.length ? ( noCards ? 
-            <View
-              style={[
-                tw(
-                  "relative border h-3/4 rounded-xl justify-center items-center"
-                ),
-              ]}
-            >
-              <Image
-                source={require("../assets/no-cards-screen.png")}
-                style={{ height: 300, width: 300 }}
-              />
-            </View> : <ActivityIndicator size="large" />
+          {!cards.length ? (
+            noCards ? (
+              <View
+                style={[
+                  tw(
+                    "relative border h-3/4 rounded-xl justify-center items-center"
+                  ),
+                ]}
+              >
+                <Image
+                  source={require("../assets/no-cards-screen.png")}
+                  style={{ height: 300, width: 300 }}
+                />
+              </View>
+            ) : (
+              <ActivityIndicator size="large" />
+            )
           ) : (
             <MySwiper cards={cards} />
           )}
@@ -203,7 +208,13 @@ export default function Home({ navigation }) {
                 learn more
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("CardAdd");
+
+                //setModalVisible(true);
+              }}
+            >
               <Text
                 style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
               >

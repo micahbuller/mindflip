@@ -61,8 +61,11 @@ const Account = () => {
         keyboardVerticalOffset={10}
       >
         <SafeAreaView style={tw("flex-1 mx-5")}>
-          <View style={tw("flex-row items-center justify-start")}>
+          <View style={tw("flex-row items-center justify-start pt-2")}>
             <TouchableOpacity
+            style={tw(
+              "h-12 w-12 items-start justify-center"
+            )}
               onPress={() => {
                 navigation.goBack();
               }}
