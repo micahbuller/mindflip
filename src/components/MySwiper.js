@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  LogBox,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import React from "react";
@@ -12,6 +13,9 @@ import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
 export default function MySwiper({ cards }) {
   const navigation = useNavigation();
+
+  //IMPORTANT it ignores this warning message.
+  LogBox.ignoreLogs(['Warning: Encountered two children with the same key']);
 
   return (
     <Swiper
@@ -27,7 +31,7 @@ export default function MySwiper({ cards }) {
       renderCard={(card, cardIndex) =>
         card ? (
           <View
-            key={cardIndex}
+            key={card.id}
             style={[
               tw(
                 "relative h-3/4 rounded-xl justify-center items-center overflow-hidden"

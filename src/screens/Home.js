@@ -50,6 +50,7 @@ export default function Home({ navigation }) {
     };
 
     fetchCards();
+
   }, [db]);
 
   return (
@@ -60,7 +61,7 @@ export default function Home({ navigation }) {
     >
     
       <SafeAreaView style={tw(`flex-1`)}>
-        <View style={tw("flex-row items-center justify-end px-5 pt-2")}>
+        <View style={tw("flex-row items-center justify-end px-5")}>
           <TouchableOpacity
             style={tw("h-12 w-12 items-end justify-center")}
             onPress={() => {
@@ -111,7 +112,7 @@ export default function Home({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("CardAdd", {cards, setCards});
+                navigation.navigate("CardAdd");
               }}
             >
               <Text
