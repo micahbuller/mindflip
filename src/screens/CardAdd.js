@@ -15,8 +15,7 @@ import {
   ArrowCircleLeftIcon,
 } from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { updateCard, deleteCard } from "../services/cardHelper";
+import { useNavigation } from "@react-navigation/native";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import { addCard } from "../services/cardHelper";
 
@@ -43,8 +42,6 @@ const DATA = [
 const CardAdd = () => {
   const { user } = useContext(AuthenticatedUserContext);
   const navigation = useNavigation();
-  const { params } = useRoute();
-  const { cards, setCards } = params;
   const [truth, setTruth] = useState("");
   const [lie, setLie] = useState("");
 
@@ -137,6 +134,7 @@ const CardAdd = () => {
                 value={lie}
                 onChangeText={(text) => setLie(text)}
                 multiline
+                maxLength={180}
               />
             </View>
 
@@ -151,6 +149,8 @@ const CardAdd = () => {
                 value={truth}
                 onChangeText={(text) => setTruth(text)}
                 multiline
+                maxLength={180}
+
               />
             </View>
             <Text style={[tw("pt-5 text-sm"), { fontFamily: "Mon-Cheri" }]}>

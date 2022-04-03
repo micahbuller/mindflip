@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { BlurView } from "expo-blur";
-import React, { useState } from "react";
+import React from "react";
 import Swiper from "react-native-deck-swiper";
 import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
@@ -16,6 +16,8 @@ export default function MySwiper({ cards }) {
   return (
     <Swiper
       key={cards.length}
+      cardVerticalMargin={40}
+      marginTop={-10}
       cardIndex={0}
       infinite={true}
       cards={cards}

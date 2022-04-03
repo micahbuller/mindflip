@@ -76,6 +76,8 @@ const CardEditor = () => {
               value={lie}
               onChangeText={(text) => setLie(text)}
               multiline
+              maxLength={180}
+
             />
           </View>
 
@@ -90,6 +92,8 @@ const CardEditor = () => {
               value={truth}
               onChangeText={(text) => setTruth(text)}
               multiline
+              maxLength={180}
+
             />
           </View>
         </SafeAreaView>
