@@ -41,20 +41,20 @@ export default function MySwiper({ cards }) {
                 { flex: 1, height: "75%", width: "100%" },
               ]}
             >
-              <View style={tw("flex-1 pb-5 px-5 justify-end items-end")}>
+              <View style={tw("flex-1 py-5 px-5 justify-end items-end")}>
                 <Text
                   style={[
-                    tw("font-bold text-2xl line-through text-center"),
+                    tw("font-bold text-lg line-through text-center"),
                     { fontFamily: "Nanum-Gothic" },
                   ]}
                 >
                   {card?.lie}
                 </Text>
               </View>
-              <View style={tw("flex-1 pt-5 px-5")}>
+              <View style={tw("flex-1 py-5 px-5")}>
                 <Text
                   style={[
-                    tw("font-bold text-2xl text-center"),
+                    tw("font-bold text-lg text-center"),
                     { fontFamily: "Nanum-Gothic" },
                   ]}
                 >
@@ -62,7 +62,7 @@ export default function MySwiper({ cards }) {
                 </Text>
               </View>
 
-              <View style={tw("flex-row justify-end")}>
+              <View style={tw("h-12 flex-row items-center justify-end")}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("CardEditor", { card });
@@ -110,10 +110,10 @@ const styles = StyleSheet.create({
   cardShadow: {
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 1,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.5,
     shadowRadius: 1.41,
     elevation: 2,
   },

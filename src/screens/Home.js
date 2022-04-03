@@ -193,7 +193,7 @@ export default function Home({ navigation }) {
           )}
         </View>
 
-        <View style={tw("flex flex-col justify-center py-8")}>
+        <View style={tw("flex flex-col justify-center mb-4 mt-4")}>
           <View
             style={tw("flex flex-row items-center justify-between px-5 pb-5")}
           >
@@ -210,7 +210,7 @@ export default function Home({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("CardAdd");
+                navigation.navigate("CardAdd", {cards, setCards});
 
                 //setModalVisible(true);
               }}
