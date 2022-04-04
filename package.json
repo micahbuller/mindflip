@@ -19,6 +19,7 @@
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "dotenv": "^16.0.0",
     "expo": "~44.0.2",
+    "expo-av": "~10.2.0",
     "expo-blur": "^11.0.0",
     "expo-font": "~10.0.4",
     "expo-splash-screen": "~0.14.1",
