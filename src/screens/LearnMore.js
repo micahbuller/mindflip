@@ -30,7 +30,6 @@ const LearnMore = ({ navigation }) => {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 
-
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
@@ -40,7 +39,7 @@ const LearnMore = ({ navigation }) => {
       <View
         style={[
           tw(
-            "flex-row bg-white opacity-50 rounded-lg mx-5 my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
+            "flex-row bg-white opacity-50 rounded-lg my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
           ),
         ]}
       >
@@ -57,8 +56,8 @@ const LearnMore = ({ navigation }) => {
       resizeMode="cover"
       style={{ flex: 1, justifyContent: "center" }}
     >
-      <SafeAreaView style={tw(`flex-1`)}>
-        <View style={tw("flex-row items-center justify-start px-5 pt-2")}>
+      <SafeAreaView style={tw(`flex-1 mx-5`)}>
+        <View style={tw("flex-row items-center justify-start pt-2")}>
           <TouchableOpacity
             style={tw("h-12 w-12 items-start justify-center")}
             onPress={() => {
@@ -69,10 +68,14 @@ const LearnMore = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <View style={tw("flex-1")}>
+        <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+          WHAT IS CBT?
+        </Text>
+
+        <View style={tw('mt-5')}>
           <Video
             ref={video}
-            style={{alignSelf: "center", width: 320, height: 200}}
+            style={{ alignSelf: "center", width: 320, height: 180 }}
             source={{
               uri: "https://mindflip.s3.us-east-2.amazonaws.com/CBT_Explination_Animation.mp4",
             }}
