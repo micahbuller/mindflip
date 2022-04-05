@@ -9,6 +9,7 @@ import {
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
+import { Video, AVPlaybackStatus } from "expo-av";
 
 const DATA = [
   {
@@ -26,6 +27,10 @@ const DATA = [
 ];
 
 const LearnMore = ({ navigation }) => {
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => {
@@ -64,20 +69,26 @@ const LearnMore = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        <View style={tw("flex-1")}>
+          <Video
+            ref={video}
+            style={{alignSelf: "center", width: 320, height: 200}}
+            source={{
+              uri: "https://mindflip.s3.us-east-2.amazonaws.com/CBT_Explination_Animation.mp4",
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping={false}
+            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+          />
+        </View>
+
         <View style={tw("flex-1 py-5")}>
           <FlatList
             data={DATA}
             keyExtractor={(item) => item.id}
             renderItem={renderItem}
           />
-        </View>
-
-        <View style={tw("flex-1 items-center justify-start px-5")}>
-          <Text
-            style={[tw("font-bold text-xl"), { fontFamily: "Nanum-Gothic" }]}
-          >
-            More to come
-          </Text>
         </View>
       </SafeAreaView>
     </ImageBackground>
