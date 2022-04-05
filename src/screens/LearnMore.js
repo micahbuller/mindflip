@@ -39,7 +39,7 @@ const LearnMore = ({ navigation }) => {
       <View
         style={[
           tw(
-            "flex-row bg-white opacity-50 rounded-lg my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
+            "flex-row bg-white bg-opacity-50 rounded-lg my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
           ),
         ]}
       >
@@ -69,17 +69,20 @@ const LearnMore = ({ navigation }) => {
         </View>
 
         <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
-          WHAT IS CBT?
+          CBT EXPLAINER
         </Text>
 
-        <View style={tw('mt-5')}>
+        <View style={tw("mt-5")}>
           <Video
+            //usePoster={true}
+            posterStyle={{width: 320, height: 180}}
+            posterSource={require("../assets/cbt-placeholder-small.jpg")}
             ref={video}
             style={{ alignSelf: "center", width: 320, height: 180 }}
             source={{
               uri: "https://mindflip.s3.us-east-2.amazonaws.com/CBT_Explination_Animation.mp4",
             }}
-            useNativeControls
+            useNativeControls={true}
             resizeMode="contain"
             isLooping={false}
             onPlaybackStatusUpdate={(status) => setStatus(() => status)}
