@@ -80,7 +80,7 @@ const LearnMore = ({ navigation }) => {
             ref={video}
             style={{ alignSelf: "center", width: 320, height: 180 }}
             source={{
-              uri: "https://mindflip.s3.us-east-2.amazonaws.com/CBT_Explination_Animation.mp4",
+              uri: "https://res.cloudinary.com/mindflip/video/upload/v1649208609/CBT_Explination_Animation_gghumb.mp4",
             }}
             useNativeControls={true}
             resizeMode="contain"
