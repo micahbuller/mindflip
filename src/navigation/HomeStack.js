@@ -7,6 +7,7 @@ import Menu from "../../src/screens/Menu";
 import CardEditor from "../screens/CardEditor";
 import Account from "../screens/Account";
 import CardAdd from "../screens/CardAdd";
+import Cbt101 from "../screens/lessons/Cbt101";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,12 @@ export default function HomeStack() {
       <Stack.Screen
         name="CardAdd"
         component={CardAdd}
+        options={{ headerShown: false }}
+      />
+      {/* Lessons */}
+      <Stack.Screen
+        name="Cbt101"
+        component={Cbt101}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

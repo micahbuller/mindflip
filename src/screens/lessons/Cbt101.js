@@ -12,23 +12,7 @@ import { ImageBackground } from "react-native";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
 import { Video, AVPlaybackStatus, Audio } from "expo-av";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "CBT 101",
-    link: "Cbt101"
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "What is CBT 0.2",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Identifying Falsity",
-  },
-];
-
-const LearnMore = ({ navigation }) => {
+const Cbt101 = ({ navigation }) => {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
 
@@ -42,29 +26,10 @@ const LearnMore = ({ navigation }) => {
     enableAudio();
   }, []);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate("Cbt101")
-      }}
-    >
-      <View
-        style={[
-          tw(
-            "flex-row bg-white bg-opacity-50 rounded-lg my-2 justify-between items-center px-5 pt-5 pb-5 overflow-hidden"
-          ),
-        ]}
-      >
-        <Text style={[tw("text-xl text-black"), { fontFamily: "Mon-Cheri" }]}>
-          {item.title}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-
+  
   return (
     <ImageBackground
-      source={require("../assets/Home.png")}
+      source={require("../../assets/Home.png")}
       resizeMode="cover"
       style={{ flex: 1, justifyContent: "center" }}
     >
@@ -80,17 +45,41 @@ const LearnMore = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+          CBT EXPLAINER
+        </Text>
+
+        <View style={tw("mt-5")}>
+          <Video
+            usePoster={true}
+            posterStyle={{ width: 400, height: 225 }}
+            posterSource={require("../../assets/cbt-placeholder-small.jpg")}
+            ref={video}
+            style={{ alignSelf: "center", width: 400, height: 225 }}
+            source={{
+              uri: "https://res.cloudinary.com/mindflip/video/upload/v1649208609/CBT_Explination_Animation_gghumb.mp4",
+            }}
+            useNativeControls={false}
+            resizeMode="cover"
+            isLooping={false}
+            //shouldPlay={true}
+            onPlaybackStatusUpdate={status => setStatus(() => status)}
+            //playsInSilentModeIOS={true}
+          />
+        </View>
+        <Button
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+          }
+        />
 
         <View style={tw("flex-1 py-5")}>
-          <FlatList
-            data={DATA}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-          />
+          {/* Everything will go here as far as the lesson goes. */}
         </View>
       </SafeAreaView>
     </ImageBackground>
   );
 };
 
-export default LearnMore;
+export default Cbt101;
