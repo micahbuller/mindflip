@@ -86,15 +86,15 @@ const LearnMore = ({ navigation }) => {
         <View style={tw("mt-5")}>
           <Video
             usePoster={true}
-            posterStyle={{ width: 320, height: 180 }}
+            posterStyle={{ width: 400, height: 225 }}
             posterSource={require("../assets/cbt-placeholder-small.jpg")}
             ref={video}
-            style={{ alignSelf: "center", width: 320, height: 180 }}
+            style={{ alignSelf: "center", width: 400, height: 225 }}
             source={{
               uri: "https://res.cloudinary.com/mindflip/video/upload/v1649208609/CBT_Explination_Animation_gghumb.mp4",
             }}
             useNativeControls={false}
-            resizeMode="contain"
+            resizeMode="cover"
             isLooping={false}
             //shouldPlay={true}
             onPlaybackStatusUpdate={status => setStatus(() => status)}
