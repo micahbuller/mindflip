@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -9,7 +9,7 @@ import {
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
-import { Video, AVPlaybackStatus } from "expo-av";
+import { Video, AVPlaybackStatus, Audio } from "expo-av";
 
 const DATA = [
   {
@@ -29,6 +29,16 @@ const DATA = [
 const LearnMore = ({ navigation }) => {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState({});
+
+  // Setting the Audio interrupt status to always
+  useEffect(() => {
+    const enableAudio = async () => {
+      await video.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+      });
+    };
+    enableAudio();
+  }, []);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -75,7 +85,7 @@ const LearnMore = ({ navigation }) => {
         <View style={tw("mt-5")}>
           <Video
             //usePoster={true}
-            posterStyle={{width: 320, height: 180}}
+            posterStyle={{ width: 320, height: 180 }}
             posterSource={require("../assets/cbt-placeholder-small.jpg")}
             ref={video}
             style={{ alignSelf: "center", width: 320, height: 180 }}
@@ -85,7 +95,7 @@ const LearnMore = ({ navigation }) => {
             useNativeControls={true}
             resizeMode="contain"
             isLooping={false}
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+            playsInSilentModeIOS={true}
           />
         </View>
 
