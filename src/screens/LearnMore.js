@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  Button,
 } from "react-native";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
@@ -33,7 +34,7 @@ const LearnMore = ({ navigation }) => {
   // Setting the Audio interrupt status to always
   useEffect(() => {
     const enableAudio = async () => {
-      await video.setAudioModeAsync({
+      await Audio.setAudioModeAsync({
         playsInSilentModeIOS: true,
       });
     };
@@ -84,7 +85,7 @@ const LearnMore = ({ navigation }) => {
 
         <View style={tw("mt-5")}>
           <Video
-            //usePoster={true}
+            usePoster={true}
             posterStyle={{ width: 320, height: 180 }}
             posterSource={require("../assets/cbt-placeholder-small.jpg")}
             ref={video}
@@ -92,12 +93,20 @@ const LearnMore = ({ navigation }) => {
             source={{
               uri: "https://res.cloudinary.com/mindflip/video/upload/v1649208609/CBT_Explination_Animation_gghumb.mp4",
             }}
-            useNativeControls={true}
+            useNativeControls={false}
             resizeMode="contain"
             isLooping={false}
-            playsInSilentModeIOS={true}
+            //shouldPlay={true}
+            onPlaybackStatusUpdate={status => setStatus(() => status)}
+            //playsInSilentModeIOS={true}
           />
         </View>
+        <Button
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+          }
+        />
 
         <View style={tw("flex-1 py-5")}>
           <FlatList
