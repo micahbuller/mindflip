@@ -34,7 +34,7 @@ export default function MySwiper({ cards }) {
             key={card.id}
             style={[
               tw(
-                "relative h-3/4 rounded-xl justify-center items-center overflow-hidden"
+                `relative h-3/4 rounded-xl justify-center items-center overflow-hidden ${Platform.OS != 'ios' ? 'bg-white' : ''}`
               ),
               styles.cardShadow,
             ]}
