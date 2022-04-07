@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   ActivityIndicator,
+  StatusBar,
 } from "react-native";
 import { MenuIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
@@ -60,7 +61,7 @@ export default function Home({ navigation }) {
       style={{ flex: 1, justifyContent: "center" }}
     >
     
-      <SafeAreaView style={tw(`flex-1`)}>
+      <SafeAreaView style={[tw(`flex-1`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
         <View style={tw("flex-row items-center justify-end px-5")}>
           <TouchableOpacity
             style={tw("h-12 w-12 items-end justify-center")}

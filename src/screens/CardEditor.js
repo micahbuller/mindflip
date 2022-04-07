@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TextInput,
   KeyboardAvoidingView,
+  StatusBar
 } from "react-native";
 import React, { useContext, useState } from "react";
 import {
@@ -37,7 +38,7 @@ const CardEditor = () => {
         style={tw("flex-1")}
         keyboardVerticalOffset={10}
       >
-        <SafeAreaView style={tw("flex-1 mx-5")}>
+      <SafeAreaView style={[tw(`flex-1 mx-5`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
           <View style={tw("flex-row items-center justify-between")}>
             <TouchableOpacity
               onPress={() => {

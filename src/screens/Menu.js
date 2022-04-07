@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  StatusBar
 } from "react-native";
 import React from "react";
 import tw from "tailwind-rn";
@@ -28,7 +29,7 @@ const Menu = ({ navigation }) => {
       resizeMode="cover"
       style={{ flex: 1, justifyContent: "center" }}
     >
-      <SafeAreaView style={tw(`flex-1 `)}>
+      <SafeAreaView style={[tw(`flex-1`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
         <View style={tw("flex-row items-center justify-start px-5 pt-2")}>
           <TouchableOpacity
             style={tw("h-12 w-12 items-start justify-center")}

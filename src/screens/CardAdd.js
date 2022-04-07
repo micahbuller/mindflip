@@ -7,7 +7,8 @@ import {
   TextInput,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
+  StatusBar
 } from "react-native";
 import React, { useContext, useState } from "react";
 import {
@@ -134,7 +135,7 @@ const CardAdd = () => {
       resizeMode="cover"
       style={{ flex: 1, justifyContent: "center" }}
     >
-      <SafeAreaView style={tw("flex-1 mx-5")}>
+      <SafeAreaView style={[tw(`flex-1 mx-5`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}

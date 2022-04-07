@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   Button,
+  StatusBar
 } from "react-native";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
@@ -33,7 +34,7 @@ const Cbt101 = ({ navigation }) => {
       resizeMode="cover"
       style={{ flex: 1, justifyContent: "center" }}
     >
-      <SafeAreaView style={tw(`flex-1 mx-5`)}>
+      <SafeAreaView style={[tw(`flex-1 mx-5`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
         <View style={tw("flex-row items-center justify-start pt-2")}>
           <TouchableOpacity
             style={tw("h-12 w-12 items-start justify-center")}

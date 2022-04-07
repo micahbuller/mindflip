@@ -6,6 +6,7 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Alert,
+  StatusBar
 } from "react-native";
 import React from "react";
 import { sendPasswordResetEmail, getAuth, deleteUser } from "firebase/auth";
@@ -60,7 +61,7 @@ const Account = () => {
         style={tw("flex-1")}
         keyboardVerticalOffset={10}
       >
-        <SafeAreaView style={tw("flex-1 mx-5")}>
+      <SafeAreaView style={[tw(`flex-1 mx-5`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
           <View style={tw("flex-row items-center justify-start pt-2")}>
             <TouchableOpacity
             style={tw(
