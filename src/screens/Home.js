@@ -22,6 +22,7 @@ export default function Home({ navigation }) {
   const [noCards, setNoCards] = useState(false);
   const [cardsLoading, setCardsLoading] = useState(true);
   const [cards, setCards] = useState([]);
+  const [cardSnapshot, setCardSnapshot] = useState(null)
   const db = getFirestore();
 
   useEffect(() => {
@@ -66,7 +67,7 @@ export default function Home({ navigation }) {
           <TouchableOpacity
             style={tw("h-12 w-12 items-end justify-center")}
             onPress={() => {
-              navigation.navigate("Menu");
+              navigation.navigate("Menu", {cardSnapshot});
             }}
           >
             <MenuIcon style={tw("text-black")} />

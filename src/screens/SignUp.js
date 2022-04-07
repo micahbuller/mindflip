@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Alert,
+  StatusBar
 } from "react-native";
 import React, { useState } from "react";
 import tw from "tailwind-rn";
@@ -48,7 +49,7 @@ const SignUp = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={tw("flex-1")}
       >
-        <SafeAreaView style={tw(`flex-1 `)}>
+      <SafeAreaView style={[tw(`flex-1`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
           <View style={tw("flex-row items-center justify-end px-5")}>
             <TouchableOpacity
               onPress={() => {
