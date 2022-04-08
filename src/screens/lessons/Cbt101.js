@@ -8,12 +8,14 @@ import {
   ScrollView,
   Button,
   StatusBar,
+  Image,
 } from "react-native";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import {
   ArrowCircleLeftIcon,
   ArrowSmDownIcon,
+  PlayIcon
 } from "react-native-heroicons/solid";
 
 const Cbt101 = ({ navigation }) => {
@@ -42,9 +44,13 @@ const Cbt101 = ({ navigation }) => {
               <ArrowCircleLeftIcon style={[tw("text-black")]} />
             </TouchableOpacity>
           </View>
-          <View
-            style={tw("h-64 w-full bg-white rounded-md overflow-hidden")}
-          ></View>
+          <View style={tw("h-64 w-full items-center justify-center bg-white rounded-md overflow-hidden")}>
+            <Image
+              style={tw('absolute inset-0 h-full w-full')}
+              source={require("../../assets/temp-bg-first-lesson.jpg")}
+            />
+            <PlayIcon style={tw('relative text-white')}/>
+          </View>
           <Text
             style={[
               tw("py-5 text-xl uppercase max-w-xs"),
