@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef } from "react";
 import {
   Text,
   SafeAreaView,
@@ -9,16 +9,26 @@ import {
   Button,
   StatusBar,
   Image,
+  StyleSheet,
+  ImageBackground,
+  Animated,
+  useWindowDimensions
 } from "react-native";
 import tw from "tailwind-rn";
-import { ImageBackground } from "react-native";
 import {
   ArrowCircleLeftIcon,
   ArrowSmDownIcon,
-  PlayIcon
+  PlayIcon,
 } from "react-native-heroicons/solid";
 
+//Testing take out later
+const images = new Array(6).fill('https://images.unsplash.com/photo-1556740749-887f6717d7e4');
+
 const Cbt101 = ({ navigation }) => {
+  //Testing take out later
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const { width: windowWidth } = useWindowDimensions();
+
   return (
     <ImageBackground
       source={require("../../assets/Home.png")}
@@ -33,7 +43,7 @@ const Cbt101 = ({ navigation }) => {
           },
         ]}
       >
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={tw("flex-row items-center justify-start pt-2")}>
             <TouchableOpacity
               style={tw("h-12 w-12 items-start justify-center")}
@@ -44,13 +54,17 @@ const Cbt101 = ({ navigation }) => {
               <ArrowCircleLeftIcon style={[tw("text-black")]} />
             </TouchableOpacity>
           </View>
-          <View style={tw("h-64 w-full items-center justify-center bg-white rounded-md overflow-hidden")}>
+          <TouchableOpacity
+            style={tw(
+              "h-64 w-full items-center justify-center bg-white rounded-md overflow-hidden"
+            )}
+          >
             <Image
-              style={tw('absolute inset-0 h-full w-full')}
+              style={tw("absolute inset-0 h-full w-full")}
               source={require("../../assets/temp-bg-first-lesson.jpg")}
             />
-            <PlayIcon style={tw('relative text-white')}/>
-          </View>
+            <PlayIcon style={tw("h-24 w-24 text-white")} />
+          </TouchableOpacity>
           <Text
             style={[
               tw("py-5 text-xl uppercase max-w-xs"),
@@ -175,10 +189,109 @@ const Cbt101 = ({ navigation }) => {
             would have said “They probably didn’t even see me or hear me” and
             thought nothing more of it.
           </Text>
+          {/* Testing Take out later */}
+          <View style={styles.scrollContainer}>
+        <ScrollView
+          horizontal={true}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={Animated.event([
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: scrollX
+                }
+              }
+            }
+          ])}
+          scrollEventThrottle={1}
+        >
+          {images.map((image, imageIndex) => {
+            return (
+              <View
+                style={{ width: windowWidth, height: 250 }}
+                key={imageIndex}
+              >
+                <ImageBackground source={{ uri: image }} style={styles.card}>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.infoText}>
+                      {"Image - " + imageIndex}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            );
+          })}
+        </ScrollView>
+        <View style={styles.indicatorContainer}>
+          {images.map((image, imageIndex) => {
+            const width = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1)
+              ],
+              outputRange: [8, 16, 8],
+              extrapolate: "clamp"
+            });
+            return (
+              <Animated.View
+                key={imageIndex}
+                style={[styles.normalDot, { width }]}
+              />
+            );
+          })}
+        </View>
+      </View>
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  scrollContainer: {
+    height: 300,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  card: {
+    flex: 1,
+    marginVertical: 4,
+    marginHorizontal: 16,
+    borderRadius: 5,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  textContainer: {
+    backgroundColor: "rgba(0,0,0, 0.7)",
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 5
+  },
+  infoText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold"
+  },
+  normalDot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: "silver",
+    marginHorizontal: 4
+  },
+  indicatorContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});
 
 export default Cbt101;
