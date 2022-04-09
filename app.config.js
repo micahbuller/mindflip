@@ -5,6 +5,7 @@ export default {
     name: "mindflip",
     slug: "mindflip",
     version: "1.0.0",
+    icon: "src/assets/mindflip-icon.png",
     assetBundlePatterns: [
       "**/*"
     ],
