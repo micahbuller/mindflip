@@ -2,9 +2,11 @@ import 'dotenv/config';
 
 export default {
   expo: {
+    owner: "micahbuller",
     name: "mindflip",
     slug: "mindflip",
     version: "1.0.0",
+    orientation: "portrait",
     icon: "src/assets/mindflip-icon.png",
     assetBundlePatterns: [
       "**/*"
