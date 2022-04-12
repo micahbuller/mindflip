@@ -14,6 +14,12 @@ import { sendPasswordResetEmail, getAuth, deleteUser } from "firebase/auth";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
+
+
+//EXPO NOTIFICATIONS
+import * as Notifications from 'expo-notifications';
+
+//AUTH
 const auth = getAuth();
 
 const Account = () => {
@@ -28,27 +34,16 @@ const Account = () => {
       });
   }
 
-//   const deleteCurrentUser = () => {
-//     Alert.alert("Delete Account", "Hope you enjoyed the app!", [
-//       {
-//         text: "Don't delete!",
-//       },
-//       {
-//         text: "Delete",
-//         onPress: () => {
-//             console.log(user)
-//         //   deleteDbUser();
-//           deleteUser(user)
-//             .then(() => {
-//               navigation.navigate("Login");
-//               Alert.alert("You have been deleted!");
-//             })
-//             .catch((error) => Alert.alert(error));
-//         },
-//         style: "cancel",
-//       },
-//     ]);
-//   };
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: 'Here is the notification body',
+        data: { data: 'goes here' },
+      },
+      trigger: { seconds: 2 },
+    });
+  }
 
   return (
     <ImageBackground
@@ -123,25 +118,25 @@ const Account = () => {
             </View>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={tw("w-full")}
-            onPress={() => deleteCurrentUser()}
+            onPress={async () => await schedulePushNotification()}
           >
             <View
               style={tw(
-                "bg-gray-800 flex-row w-full items-center justify-center bg-opacity-25 px-2 py-5 rounded-full text-lg"
+                "bg-gray-800 flex-row w-full items-center justify-center bg-opacity-25 px-2 py-5 my-5 rounded-full text-lg"
               )}
             >
               <Text
                 style={[
-                  tw("text-lg text-yellow-200"),
+                  tw("text-lg text-white"),
                   { fontFamily: "Nanum-Gothic" },
                 ]}
               >
-                delete account
+                Send Notification
               </Text>
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </SafeAreaView>
       </KeyboardAvoidingView>
     </ImageBackground>
