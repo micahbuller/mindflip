@@ -20,6 +20,7 @@ import Constants from "expo-constants";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import {
+  doc,
   addDoc,
   collection,
   query,
@@ -58,8 +59,8 @@ const Menu = ({ navigation }) => {
 
       if (!querySnapShot.empty) {
         //DELETE PUSH TOKEN FROM DB
-        querySnapShot.forEach((doc) => {
-          deleteDoc(doc)
+        querySnapShot.forEach((docItem) => {
+          deleteDoc(doc(db, "subscriptions", docItem.id))
         })
       }
     }
