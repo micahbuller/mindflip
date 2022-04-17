@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 export default {
   expo: {
@@ -8,11 +8,15 @@ export default {
     version: "1.0.0",
     orientation: "portrait",
     icon: "src/assets/mindflip-icon.png",
-    assetBundlePatterns: [
-      "**/*"
-    ],
+    assetBundlePatterns: ["**/*"],
+    notification: {
+      icon: "src/assets/mindflip-icon.png",
+      color: "#000000",
+    },
     android: {
-      "package": "com.micahbuller.mindflip"
+      package: "com.micahbuller.mindflip",
+      permissions: ["NOTIFICATIONS"],
+      useNextNotificationsApi: true
     },
     extra: {
       apiKey: process.env.API_KEY,
@@ -20,8 +24,8 @@ export default {
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID
-    }
+      appId: process.env.APP_ID,
+    },
   },
-  name: "mindflip"
-}
+  name: "mindflip",
+};
