@@ -11,7 +11,7 @@ export default {
     assetBundlePatterns: ["**/*"],
     notification: {
       icon: "src/assets/mindflip-icon.png",
-      color: "#000000",
+      color: "#ffffff",
     },
     android: {
       package: "com.micahbuller.mindflip",

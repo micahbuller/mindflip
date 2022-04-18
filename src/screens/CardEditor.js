@@ -6,7 +6,7 @@ import {
   ImageBackground,
   TextInput,
   KeyboardAvoidingView,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import {
@@ -38,7 +38,15 @@ const CardEditor = () => {
         style={tw("flex-1")}
         keyboardVerticalOffset={10}
       >
-      <SafeAreaView style={[tw(`flex-1 mx-5`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
+        <SafeAreaView
+          style={[
+            tw(`flex-1 mx-5`),
+            {
+              paddingTop:
+                Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            },
+          ]}
+        >
           <View style={tw("flex-row items-center justify-between")}>
             <TouchableOpacity
               onPress={() => {
@@ -65,21 +73,28 @@ const CardEditor = () => {
               </TouchableOpacity>
             </View>
           </View>
-          
+
           <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
             LIE
           </Text>
           <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
             <TextInput
-              style={tw("flex-1 pl-2 mr-2")}
+              style={tw("flex-1 pl-2 mr-2 text-xl")}
               autoCapitalize="none"
               clearButtonMode="always"
               value={lie}
               onChangeText={(text) => setLie(text)}
               multiline
               maxLength={180}
-
             />
+            <Text
+              style={[
+                tw("absolute bottom-2 right-2 text-xs opacity-50"),
+                { fontFamily: "Nanum-Gothic" },
+              ]}
+            >
+              Limit 180.
+            </Text>
           </View>
 
           <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
@@ -87,15 +102,22 @@ const CardEditor = () => {
           </Text>
           <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
             <TextInput
-              style={tw("flex-1 pl-2 mr-2")}
+              style={tw("flex-1 pl-2 mr-2 text-xl")}
               autoCapitalize="none"
               clearButtonMode="always"
               value={truth}
               onChangeText={(text) => setTruth(text)}
               multiline
               maxLength={180}
-
             />
+            <Text
+              style={[
+                tw("absolute bottom-2 right-2 text-xs opacity-50"),
+                { fontFamily: "Nanum-Gothic" },
+              ]}
+            >
+              Limit 180.
+            </Text>
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>

@@ -9,15 +9,10 @@ import {
   StatusBar
 } from "react-native";
 import React from "react";
-import { sendPasswordResetEmail, getAuth, deleteUser } from "firebase/auth";
-// import { deleteDbUser } from "../services/cardHelper";
+import { sendPasswordResetEmail, getAuth } from "firebase/auth";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
-
-
-//EXPO NOTIFICATIONS
-import * as Notifications from 'expo-notifications';
 
 //AUTH
 const auth = getAuth();
@@ -32,17 +27,6 @@ const Account = () => {
       .catch((error) => {
         Alert.alert(error);
       });
-  }
-
-  async function schedulePushNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "You've got mail! 📬",
-        body: 'Here is the notification body',
-        data: { data: 'goes here' },
-      },
-      trigger: { seconds: 2 },
-    });
   }
 
   return (
@@ -118,25 +102,7 @@ const Account = () => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={tw("w-full")}
-            onPress={async () => await schedulePushNotification()}
-          >
-            <View
-              style={tw(
-                "bg-gray-800 flex-row w-full items-center justify-center bg-opacity-25 px-2 py-5 my-5 rounded-full text-lg"
-              )}
-            >
-              <Text
-                style={[
-                  tw("text-lg text-white"),
-                  { fontFamily: "Nanum-Gothic" },
-                ]}
-              >
-                Send Notification
-              </Text>
-            </View>
-          </TouchableOpacity>
+          
         </SafeAreaView>
       </KeyboardAvoidingView>
     </ImageBackground>
