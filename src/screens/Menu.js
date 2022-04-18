@@ -21,7 +21,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import {
   doc,
-  addDoc,
   collection,
   query,
   where,
@@ -33,7 +32,6 @@ const auth = Firebase.auth();
 const db = getFirestore();
 
 const Menu = ({ navigation }) => {
-
   const deletePushToken = async () => {
     let token;
     if (Constants.isDevice) {
@@ -60,8 +58,8 @@ const Menu = ({ navigation }) => {
       if (!querySnapShot.empty) {
         //DELETE PUSH TOKEN FROM DB
         querySnapShot.forEach((docItem) => {
-          deleteDoc(doc(db, "subscriptions", docItem.id))
-        })
+          deleteDoc(doc(db, "subscriptions", docItem.id));
+        });
       }
     }
   };

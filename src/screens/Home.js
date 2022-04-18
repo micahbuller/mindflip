@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
   StatusBar,
 } from "react-native";
-import { MenuIcon } from "react-native-heroicons/solid";
+import { UserCircleIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
@@ -67,10 +67,10 @@ export default function Home({ navigation }) {
           <TouchableOpacity
             style={tw("h-12 w-12 items-end justify-center")}
             onPress={() => {
-              navigation.navigate("Menu", {cardSnapshot});
+              navigation.navigate("Account", {cardSnapshot});
             }}
           >
-            <MenuIcon style={tw("text-black")} />
+            <UserCircleIcon style={tw("text-black")} />
           </TouchableOpacity>
         </View>
 
