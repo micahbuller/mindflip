@@ -99,9 +99,9 @@ export default function Home({ navigation }) {
 
         <View style={tw("flex flex-col justify-center mb-4 mt-4")}>
           <View
-            style={tw("flex flex-row items-center justify-between px-5 pb-5")}
+            style={tw("flex flex-row items-center justify-center px-5 pb-5")}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 navigation.navigate("LearnMore");
               }}
@@ -111,7 +111,7 @@ export default function Home({ navigation }) {
               >
                 learn more
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("CardAdd");
