@@ -9,7 +9,7 @@ import {
   StatusBar,
   Switch,
 } from "react-native";
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { sendPasswordResetEmail, getAuth } from "firebase/auth";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
 import tw from "tailwind-rn";
@@ -24,26 +24,54 @@ import {
   deleteDoc,
 } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-
-const db = getFirestore();
-
-
-
-//AUTH
-const auth = getAuth();
-
 //EXPO NOTIFICATIONS
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 
+const db = getFirestore();
+
+//AUTH
+const auth = getAuth();
+
 const Account = () => {
-  const [notificationSwitch, setNotificationSwitch] = useState(false)
+  const [notificationSwitch, setNotificationSwitch] = useState(false);
+  const [token, setToken] = useState(null);
   const navigation = useNavigation();
   const user = auth.currentUser;
 
-  function toggleSwitch(){
-    setNotificationSwitch(!notificationSwitch)
-    Alert.alert("Still need to do this.")
+  useEffect(async () => {
+    //Get whether notifications is enabled or not.
+    if (Constants.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        //No permissions for notifications, so return
+        setNotificationSwitch(false);
+        return;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        setNotificationSwitch(false);
+        return;
+      }
+
+      setNotificationSwitch(true);
+      setToken((await Notifications.getExpoPushTokenAsync()).data);
+    }
+
+    return () => {
+      //Clean Up State
+    };
+  }, []);
+
+  function toggleSwitch() {
+    if (token) {
+      deletePushToken();
+    } else {
+      addPushTokenToDb();
+    }
+    setNotificationSwitch(!notificationSwitch);
   }
 
   function sendPassReset() {
@@ -54,21 +82,58 @@ const Account = () => {
       });
   }
 
-  const deletePushToken = async () => {
-    let token;
+  const addPushTokenToDb = async () => {
+    //Check to see if current push token exists, if not add it to db
+
     if (Constants.isDevice) {
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+          shouldShowAlert: true,
+        }),
+      });
+
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== "granted") {
-        //No permissions for notifications, so return
-        return;
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
       }
       if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
+        Alert.alert("Failed to get push token for push notification!");
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
+      setToken((await Notifications.getExpoPushTokenAsync()).data);
+
+      const q = query(
+        collection(db, "subscriptions"),
+        where("token", "==", token)
+      );
+
+      const querySnapShot = await getDocs(q);
+
+      if (querySnapShot.empty) {
+        await addDoc(collection(db, "subscriptions"), {
+          email: auth.currentUser.email,
+          token: token,
+        }).then((docRef) => {
+          console.log(docRef);
+        });
+      }
+    }
+  };
+
+  const deletePushToken = async () => {
+    if (Constants.isDevice) {
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldPlaySound: false,
+          shouldSetBadge: false,
+          shouldShowAlert: false,
+        }),
+      });
 
       const q = query(
         collection(db, "subscriptions"),
@@ -80,7 +145,9 @@ const Account = () => {
       if (!querySnapShot.empty) {
         //DELETE PUSH TOKEN FROM DB
         querySnapShot.forEach((docItem) => {
-          deleteDoc(doc(db, "subscriptions", docItem.id));
+          deleteDoc(doc(db, "subscriptions", docItem.id)).then((docRef) => {
+            console.log(docRef);
+          });
         });
       }
     }
@@ -175,38 +242,31 @@ const Account = () => {
               value={notificationSwitch}
             />
           </View>
-
-          <TouchableOpacity
-            style={tw("w-full pt-2")}
-            onPress={() => sendPassReset()}
-          >
-            <View
-              style={tw(
-                "bg-gray-800 flex-row w-full items-center justify-center bg-opacity-25 px-2 py-5 my-5 rounded-full text-lg"
-              )}
-            >
+        
+          <View style={tw("flex-row items-center justify-end")}>
+            <TouchableOpacity onPress={() => sendPassReset()}>
               <Text
                 style={[
-                  tw("text-lg text-white"),
-                  { fontFamily: "Nanum-Gothic" },
+                  tw("text-2xl text-black py-10"),
+                  { fontFamily: "Mon-Cheri" },
                 ]}
               >
-                send password reset
+                RESET PASS
               </Text>
-            </View>
-          </TouchableOpacity>
-          <View style={tw("flex-row items-center justify-end px-5")}>
-          <TouchableOpacity onPress={handleSignOut}>
-            <Text
-              style={[
-                tw("text-2xl text-black py-10"),
-                { fontFamily: "Mon-Cheri" },
-              ]}
-            >
-              LOG OUT
-            </Text>
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+          </View>
+          <View style={tw("flex-row items-center justify-end")}>
+            <TouchableOpacity onPress={handleSignOut}>
+              <Text
+                style={[
+                  tw("text-2xl text-black pt-2"),
+                  { fontFamily: "Mon-Cheri" },
+                ]}
+              >
+                LOG OUT
+              </Text>
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
     </ImageBackground>
