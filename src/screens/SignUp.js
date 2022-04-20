@@ -6,9 +6,10 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Alert,
-  StatusBar
+  StatusBar,
+  Keyboard
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "tailwind-rn";
 import { ImageBackground } from "react-native";
 import Firebase from "../../config/firebase";
@@ -22,6 +23,7 @@ const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [contentVis, setContentVis] = useState(true)
 
   const onHandleSignup = async () => {
     try {
@@ -40,6 +42,24 @@ const SignUp = ({ navigation }) => {
     }
   };
 
+  useEffect(() => {
+    const setContent = () => {
+      setContentVis(true)
+    }
+    const hideContent = () => {
+      setContentVis(false)
+    }
+
+    let keyboardShowListener = Keyboard.addListener('keyboardDidShow', hideContent)
+    let keyboardHideListener = Keyboard.addListener('keyboardDidHide', setContent)
+
+
+    return () => {
+      keyboardHideListener.remove()
+      keyboardShowListener.remove()
+    };
+  }, [])
+
   return (
     <ImageBackground
       source={require("../assets/LogIn.png")}
@@ -57,10 +77,10 @@ const SignUp = ({ navigation }) => {
                 navigation.navigate("LogIn");
               }}
             >
-              <Text style={[tw("text-xl text-black"), { fontFamily: "Nanum-Gothic" }]}>or log in</Text>
+              <Text style={[tw("text-xl text-gray-400"), { fontFamily: "Nanum-Gothic" }]}>or log in</Text>
             </TouchableOpacity>
           </View>
-          <View style={tw("justify-center flex-1 items-start px-5")}>
+          <View style={tw(`justify-center flex-1 items-start px-5 ${contentVis ? "" : "hidden"}`)}>
             <Text style={[tw("text-xl"), { fontFamily: "Mon-Cheri" }]}>
               WLCM TO MINDFLIP
             </Text>

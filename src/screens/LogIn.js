@@ -57,7 +57,7 @@ const LogIn = ({ navigation }) => {
                 navigation.navigate("SignUp");
               }}
             >
-              <Text style={[tw("text-xl text-black"), { fontFamily: "Nanum-Gothic" }]}>or sign up</Text>
+              <Text style={[tw("text-xl text-gray-400"), { fontFamily: "Nanum-Gothic" }]}>or sign up</Text>
             </TouchableOpacity>
           </View>
           <View style={tw("justify-center flex-1 items-start px-5")}>
@@ -66,6 +66,11 @@ const LogIn = ({ navigation }) => {
             </Text>
           </View>
           <View style={tw("flex-1 justify-end items-center pb-10 mx-5")}>
+            <View style={tw('flex flex-row w-full justify-end pb-4')}>
+              <TouchableOpacity>
+                <Text style={[tw("text-gray-400"), { fontFamily: "Nanum-Gothic" }]}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </View>
             <View
               style={tw("bg-gray-50 flex-row w-full rounded-xl text-lg mb-5")}
             >
