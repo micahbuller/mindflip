@@ -8,7 +8,15 @@ import { Text, View, Button, Platform } from "react-native";
 import Firebase from "./config/firebase";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { addDoc, collection, query, where, getDocs } from "@firebase/firestore";
+import {
+  addDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+} from "@firebase/firestore";
 const userAuth = getAuth();
 const auth = Firebase.auth();
 const db = getFirestore();
@@ -32,19 +40,26 @@ function App() {
   const responseListener = useRef();
 
   const addPushTokenToDb = async (myToken) => {
-    //Check to see if current push token exists, if not add it to db
-    const q = query(
-      collection(db, "subscriptions"),
-      where("token", "==", myToken)
-    );
+    // First check to see if the user notifications are enabled.
+    //Check to see if current push token exists, if not add it to db.
+    const n = query(doc(db, "users", userAuth.currentUser.email));
 
-    const querySnapShot = await getDocs(q);
+    const notificationSnapshot = await (await getDoc(n)).data();
 
-    if (querySnapShot.empty) {
-      await addDoc(collection(db, "subscriptions"), {
-        email: userAuth.currentUser.email,
-        token: myToken,
-      });
+    if (notificationSnapshot.notifications) {
+      const q = query(
+        collection(db, "subscriptions"),
+        where("token", "==", myToken)
+      );
+
+      const querySnapShot = await getDocs(q);
+
+      if (querySnapShot.empty) {
+        await addDoc(collection(db, "subscriptions"), {
+          email: userAuth.currentUser.email,
+          token: myToken,
+        });
+      }
     }
   };
 

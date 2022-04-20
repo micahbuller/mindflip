@@ -22,6 +22,9 @@ import {
   where,
   getDocs,
   deleteDoc,
+  updateDoc,
+  getDoc,
+  addDoc,
 } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 //EXPO NOTIFICATIONS
@@ -41,23 +44,12 @@ const Account = () => {
 
   useEffect(async () => {
     //Get whether notifications is enabled or not.
-    if (Constants.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        //No permissions for notifications, so return
-        setNotificationSwitch(false);
-        return;
-      }
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
-        setNotificationSwitch(false);
-        return;
-      }
+    const n = query(doc(db, "users", auth.currentUser.email));
 
-      setNotificationSwitch(true);
-      setToken((await Notifications.getExpoPushTokenAsync()).data);
+    const notificationSnapshot = await (await getDoc(n)).data();
+
+    if (notificationSnapshot.notifications) {
+      setNotificationSwitch(notificationSnapshot.notifications);
     }
 
     return () => {
@@ -66,7 +58,7 @@ const Account = () => {
   }, []);
 
   function toggleSwitch() {
-    if (token) {
+    if (notificationSwitch) {
       deletePushToken();
     } else {
       addPushTokenToDb();
@@ -102,25 +94,32 @@ const Account = () => {
         finalStatus = status;
       }
       if (finalStatus !== "granted") {
-        Alert.alert("Failed to get push token for push notification!");
+        Alert.alert(
+          "Failed to enable push notifications, please enable them in settings."
+        );
         return;
-      }
-      setToken((await Notifications.getExpoPushTokenAsync()).data);
+      } else {
+        setToken((await Notifications.getExpoPushTokenAsync()).data);
 
-      const q = query(
-        collection(db, "subscriptions"),
-        where("token", "==", token)
-      );
-
-      const querySnapShot = await getDocs(q);
-
-      if (querySnapShot.empty) {
-        await addDoc(collection(db, "subscriptions"), {
-          email: auth.currentUser.email,
-          token: token,
-        }).then((docRef) => {
-          console.log(docRef);
+        await updateDoc(doc(db, "users", auth.currentUser.email), {
+          notifications: true,
         });
+
+        const q = query(
+          collection(db, "subscriptions"),
+          where("token", "==", token)
+        );
+
+        const querySnapShot = await getDocs(q);
+
+        if (querySnapShot.empty) {
+          await addDoc(collection(db, "subscriptions"), {
+            email: auth.currentUser.email,
+            token: token,
+          }).then((docRef) => {
+            console.log(docRef);
+          });
+        }
       }
     }
   };
@@ -133,6 +132,10 @@ const Account = () => {
           shouldSetBadge: false,
           shouldShowAlert: false,
         }),
+      });
+
+      await updateDoc(doc(db, "users", auth.currentUser.email), {
+        notifications: false,
       });
 
       const q = query(
@@ -242,7 +245,7 @@ const Account = () => {
               value={notificationSwitch}
             />
           </View>
-        
+
           <View style={tw("flex-row items-center justify-end")}>
             <TouchableOpacity onPress={() => sendPassReset()}>
               <Text

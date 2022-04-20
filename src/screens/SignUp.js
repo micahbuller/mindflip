@@ -30,6 +30,7 @@ const SignUp = ({ navigation }) => {
         setDoc(doc(db, "users", email), {
           email: email,
           name: name,
+          notifications: true,
         });
       } else {
         Alert.alert("You forgot to fill out everything.");
