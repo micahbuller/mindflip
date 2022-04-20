@@ -197,78 +197,84 @@ const Account = () => {
             </TouchableOpacity>
           </View>
 
-          <Text
-            style={[
-              tw("pt-5 text-xl text-right my-5"),
-              { fontFamily: "Mon-Cheri" },
-            ]}
-          >
-            ACCOUNT
-          </Text>
-
-          <Text
-            style={[
-              tw("pt-5 text-sm text-right"),
-              { fontFamily: "Nanum-Gothic" },
-            ]}
-          >
-            your email
-          </Text>
-          <Text
-            style={[tw("pt-2 text-lg text-right"), { fontFamily: "Mon-Cheri" }]}
-          >
-            {user.email}
-          </Text>
-
-          <Text
-            style={[
-              tw("pt-5 text-sm text-right"),
-              { fontFamily: "Nanum-Gothic" },
-            ]}
-          >
-            notifications
-          </Text>
-          <View style={tw(`flex flex-row justify-end items-center my-2`)}>
+          {/* Beginning of content */}
+          <View style={tw('flex-1 justify-center')}>
             <Text
               style={[
-                tw("pt-2 pr-2 text-lg text-right"),
+                tw("pt-5 text-2xl text-right mb-5"),
                 { fontFamily: "Mon-Cheri" },
               ]}
             >
-              daily reminders?
+              ACCOUNT
             </Text>
-            <Switch
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={notificationSwitch ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={notificationSwitch}
-            />
-          </View>
 
-          <View style={tw("flex-row items-center justify-end")}>
-            <TouchableOpacity onPress={() => sendPassReset()}>
+            <Text
+              style={[
+                tw("pt-5 text-sm text-right"),
+                { fontFamily: "Nanum-Gothic" },
+              ]}
+            >
+              your email
+            </Text>
+            <Text
+              style={[
+                tw("pt-2 text-lg text-right"),
+                { fontFamily: "Mon-Cheri" },
+              ]}
+            >
+              {user.email}
+            </Text>
+
+            <Text
+              style={[
+                tw("pt-5 text-sm text-right"),
+                { fontFamily: "Nanum-Gothic" },
+              ]}
+            >
+              notifications
+            </Text>
+            <View style={tw(`flex flex-row justify-end items-center my-2`)}>
               <Text
                 style={[
-                  tw("text-2xl text-black py-10"),
+                  tw("pt-2 pr-2 text-lg text-right"),
                   { fontFamily: "Mon-Cheri" },
                 ]}
               >
-                RESET PASS
+                daily reminders?
               </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={tw("flex-row items-center justify-end")}>
-            <TouchableOpacity onPress={handleSignOut}>
-              <Text
-                style={[
-                  tw("text-2xl text-black pt-2"),
-                  { fontFamily: "Mon-Cheri" },
-                ]}
-              >
-                LOG OUT
-              </Text>
-            </TouchableOpacity>
+              <Switch
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={notificationSwitch ? "#f5dd4b" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={notificationSwitch}
+              />
+            </View>
+
+            <View style={tw("flex-row items-center justify-end")}>
+              <TouchableOpacity onPress={() => sendPassReset()}>
+                <Text
+                  style={[
+                    tw("text-xl text-black py-10"),
+                    { fontFamily: "Mon-Cheri" },
+                  ]}
+                >
+                  RESET PASS
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={tw("flex-row items-center justify-end")}>
+              <TouchableOpacity onPress={handleSignOut}>
+                <Text
+                  style={[
+                    tw("text-xl text-black pt-2"),
+                    { fontFamily: "Mon-Cheri" },
+                  ]}
+                >
+                  LOG OUT
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
