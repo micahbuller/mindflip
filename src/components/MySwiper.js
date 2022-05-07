@@ -50,16 +50,6 @@ export default function MySwiper({ cards }) {
               <View style={tw("flex-1 py-5 px-5 justify-end items-end")}>
                 <Text
                   style={[
-                    tw("font-bold text-lg line-through text-center"),
-                    { fontFamily: "Nanum-Gothic" },
-                  ]}
-                >
-                  {card?.lie}
-                </Text>
-              </View>
-              <View style={tw("flex-1 py-5 px-5")}>
-                <Text
-                  style={[
                     tw("font-bold text-lg text-center"),
                     { fontFamily: "Nanum-Gothic" },
                   ]}
@@ -67,16 +57,27 @@ export default function MySwiper({ cards }) {
                   {card?.truth}
                 </Text>
               </View>
+              <View style={tw("flex-1 py-5 px-5")}>
+                <Text
+                  style={[
+                    tw("font-bold text-lg text-center opacity-25"),
+                    { fontFamily: "Nanum-Gothic" },
+                  ]}
+                >
+                  {card?.lie}
+                </Text>
+              </View>
 
-              <View style={tw("h-12 flex-row items-center justify-end")}>
+              <View style={tw("flex-row items-center justify-end mb-5")}>
                 <TouchableOpacity
+                style={tw("h-12 w-12 bg-gray-200 rounded-full items-center justify-center text-center")}
                   onPress={() => {
                     navigation.navigate("CardEditor", { card });
                   }}
                 >
                   <Text
                     style={[
-                      tw("pb-5 font-bold text-black opacity-25"),
+                      tw("font-bold text-black opacity-25"),
                       { fontFamily: "Nanum-Gothic" },
                     ]}
                   >
