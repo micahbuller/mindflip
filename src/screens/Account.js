@@ -12,8 +12,8 @@ import {
 import React, { useState, useEffect } from "react";
 import { sendPasswordResetEmail, getAuth } from "firebase/auth";
 import { ArrowCircleLeftIcon } from "react-native-heroicons/solid";
-import tw from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
+import tw from "../../lib/tailwind";
 
 import {
   doc,
@@ -167,41 +167,36 @@ const Account = () => {
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/Home.png")}
-      resizeMode="cover"
-      style={{ flex: 1, justifyContent: "center" }}
-    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={tw("flex-1")}
+        style={tw`flex-1`}
         keyboardVerticalOffset={10}
       >
         <SafeAreaView
           style={[
-            tw(`flex-1 mx-5`),
+            tw`flex-1 mx-5`,
             {
               paddingTop:
                 Platform.OS === "android" ? StatusBar.currentHeight : 0,
             },
           ]}
         >
-          <View style={tw("flex-row items-center justify-start pt-2")}>
+          <View style={tw`flex-row items-center justify-start pt-2`}>
             <TouchableOpacity
-              style={tw("h-12 w-12 items-start justify-center")}
+              style={tw`h-12 w-12 items-start justify-center`}
               onPress={() => {
                 navigation.goBack();
               }}
             >
-              <ArrowCircleLeftIcon style={[tw("text-black")]} />
+              <ArrowCircleLeftIcon style={[tw`text-black`]} />
             </TouchableOpacity>
           </View>
 
           {/* Beginning of content */}
-          <View style={tw('flex-1 justify-center')}>
+          <View style={tw`flex-1 justify-center`}>
             <Text
               style={[
-                tw("pt-5 text-2xl text-right mb-5"),
+                tw`pt-5 text-2xl text-right mb-5`,
                 { fontFamily: "Mon-Cheri" },
               ]}
             >
@@ -210,7 +205,7 @@ const Account = () => {
 
             <Text
               style={[
-                tw("pt-5 text-sm text-right"),
+                tw`pt-5 text-sm text-right`,
                 { fontFamily: "Nanum-Gothic" },
               ]}
             >
@@ -218,7 +213,7 @@ const Account = () => {
             </Text>
             <Text
               style={[
-                tw("pt-2 text-lg text-right"),
+                tw`pt-2 text-lg text-right`,
                 { fontFamily: "Mon-Cheri" },
               ]}
             >
@@ -227,16 +222,16 @@ const Account = () => {
 
             <Text
               style={[
-                tw("pt-5 text-sm text-right"),
+                tw`pt-5 text-sm text-right`,
                 { fontFamily: "Nanum-Gothic" },
               ]}
             >
               notifications
             </Text>
-            <View style={tw(`flex flex-row justify-end items-center my-2`)}>
+            <View style={tw`flex flex-row justify-end items-center my-2`}>
               <Text
                 style={[
-                  tw("pt-2 pr-2 text-lg text-right"),
+                  tw`pt-2 pr-2 text-lg text-right`,
                   { fontFamily: "Mon-Cheri" },
                 ]}
               >
@@ -251,11 +246,11 @@ const Account = () => {
               />
             </View>
 
-            <View style={tw("flex-row items-center justify-end")}>
+            <View style={tw`flex-row items-center justify-end`}>
               <TouchableOpacity onPress={() => sendPassReset()}>
                 <Text
                   style={[
-                    tw("text-xl text-black py-10"),
+                    tw`text-xl text-black py-10`,
                     { fontFamily: "Mon-Cheri" },
                   ]}
                 >
@@ -263,11 +258,11 @@ const Account = () => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={tw("flex-row items-center justify-end")}>
+            <View style={tw`flex-row items-center justify-end`}>
               <TouchableOpacity onPress={handleSignOut}>
                 <Text
                   style={[
-                    tw("text-xl text-black pt-2"),
+                    tw`text-xl text-black pt-2`,
                     { fontFamily: "Mon-Cheri" },
                   ]}
                 >
@@ -278,7 +273,6 @@ const Account = () => {
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
-    </ImageBackground>
   );
 };
 

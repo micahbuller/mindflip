@@ -33,14 +33,14 @@ export default function MySwiper({ cards }) {
           <View
             key={card.id}
             style={[
-              tw`relative h-3/4 rounded-xl justify-center items-center overflow-hidden bg-white`,
+              tw`relative h-3/4 rounded-xl justify-center overflow-hidden bg-peach-200`,
               styles.cardShadow,
             ]}
           >
             <View style={tw`flex-1 py-5 px-5 justify-end items-end`}>
               <Text
                 style={[
-                  tw`font-bold text-lg text-center`,
+                  tw`font-bold text-lg text-white text-left`,
                   { fontFamily: "Nanum-Gothic" },
                 ]}
               >
@@ -50,7 +50,7 @@ export default function MySwiper({ cards }) {
             <View style={tw`flex-1 py-5 px-5`}>
               <Text
                 style={[
-                  tw`font-bold text-lg text-center opacity-25`,
+                  tw`font-bold text-lg text-right text-peach-600`,
                   { fontFamily: "Nanum-Gothic" },
                 ]}
               >
@@ -58,7 +58,7 @@ export default function MySwiper({ cards }) {
               </Text>
             </View>
 
-            <View style={tw`flex-row items-center justify-end mb-5`}>
+            {/* <View style={tw`flex-row items-center justify-end mb-5`}>
               <TouchableOpacity
                 style={tw`h-12 w-12 bg-gray-200 rounded-full items-center justify-center text-center`}
                 onPress={() => {
@@ -74,7 +74,7 @@ export default function MySwiper({ cards }) {
                   edit
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         ) : (
           <View

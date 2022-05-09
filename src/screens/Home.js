@@ -12,8 +12,7 @@ import {
 import { UserCircleIcon } from "react-native-heroicons/solid";
 import { collection, onSnapshot, query } from "@firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-
-import tw from "tailwind-rn";
+import tw from "../../lib/tailwind";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import MySwiper from "../components/MySwiper";
 
@@ -57,26 +56,26 @@ export default function Home({ navigation }) {
 
   return (
     
-      <SafeAreaView style={[tw(`flex-1`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
-        <View style={tw("flex-row items-center justify-end px-5")}>
+      <SafeAreaView style={[tw`flex-1`, {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
+        <View style={tw`flex-row items-center justify-end px-5`}>
           <TouchableOpacity
-            style={tw("h-12 w-12 items-end justify-center")}
+            style={tw`h-12 w-12 items-end justify-center`}
             onPress={() => {
               navigation.navigate("Account", {cardSnapshot});
             }}
           >
-            <UserCircleIcon style={tw("text-black")} />
+            <UserCircleIcon style={tw`text-peach-300`} />
           </TouchableOpacity>
         </View>
 
-        <View style={tw("relative flex-1 items-center justify-center")}>
+        <View style={tw`relative flex-1 items-center justify-center`}>
           {!cards.length ? (
             noCards ? (
               <View
                 style={[
-                  tw(
-                    "relative border h-3/4 rounded-xl justify-center items-center"
-                  ),
+                  tw
+                    `relative border h-3/4 rounded-xl justify-center items-center`
+                  ,
                 ]}
               >
                 <Image
@@ -92,28 +91,17 @@ export default function Home({ navigation }) {
           )}
         </View>
 
-        <View style={tw("flex flex-col justify-center mb-4 mt-4")}>
+        <View style={tw`flex flex-col justify-center mb-4 mt-4`}>
           <View
-            style={tw("flex flex-row items-center justify-center px-5 pb-5")}
+            style={tw`flex flex-row items-center justify-center px-5 pb-5`}
           >
-            {/* <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("LearnMore");
-              }}
-            >
-              <Text
-                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
-              >
-                learn more
-              </Text>
-            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate("CardAdd");
               }}
             >
               <Text
-                style={[tw("text-2xl text-black"), { fontFamily: "Mon-Cheri" }]}
+                style={[tw`text-2xl text-black`, { fontFamily: "Mon-Cheri" }]}
               >
                 add card
               </Text>

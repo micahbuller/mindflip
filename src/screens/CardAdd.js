@@ -15,7 +15,7 @@ import {
   CheckCircleIcon,
   ArrowCircleLeftIcon,
 } from "react-native-heroicons/solid";
-import tw from "tailwind-rn";
+import tw from "../../lib/tailwind";
 import { useNavigation } from "@react-navigation/native";
 import { AuthenticatedUserContext } from "../navigation/AuthenticatedUserProvider";
 import { addCard } from "../services/cardHelper";
@@ -111,14 +111,14 @@ const CardAdd = () => {
       <View
         key={item.id}
         style={[
-          tw(
-            "flex-col border rounded-lg my-1 justify-between items-center px-5 py-4"
-          ),
+          tw
+            `flex-col border rounded-lg my-1 justify-between items-center px-5 py-4`
+          ,
         ]}
       >
         <Text
           style={[
-            tw("text-sm text-black line-through text-center"),
+            tw`text-sm text-black line-through text-center`,
             { fontFamily: "Nanum-Gothic" },
           ]}
         >
@@ -126,7 +126,7 @@ const CardAdd = () => {
         </Text>
         <Text
           style={[
-            tw("text-sm text-black text-center pt-2"),
+            tw`text-sm text-black text-center pt-2`,
             { fontFamily: "Nanum-Gothic" },
           ]}
         >
@@ -137,14 +137,10 @@ const CardAdd = () => {
   );
 
   return (
-    <ImageBackground
-      source={require("../assets/Home.png")}
-      resizeMode="cover"
-      style={{ flex: 1, justifyContent: "center" }}
-    >
+
       <SafeAreaView
         style={[
-          tw(`flex-1 mx-5`),
+          tw`flex-1 mx-5`,
           {
             paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
           },
@@ -153,32 +149,32 @@ const CardAdd = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={tw("flex")}
+            style={tw`flex`}
             keyboardVerticalOffset={10}
           >
-            <View style={tw("flex-row items-center justify-between")}>
+            <View style={tw`flex-row items-center justify-between`}>
               <TouchableOpacity
                 onPress={() => {
                   navigation.goBack();
                 }}
               >
-                <ArrowCircleLeftIcon style={[tw("text-black")]} />
+                <ArrowCircleLeftIcon style={[tw`text-black`]} />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   sendCard();
                 }}
               >
-                <CheckCircleIcon style={tw("text-black")} />
+                <CheckCircleIcon style={tw`text-black`} />
               </TouchableOpacity>
             </View>
 
-            <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+            <Text style={[tw`pt-5 text-xl`, { fontFamily: "Mon-Cheri" }]}>
               LIE
             </Text>
-            <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
+            <View style={tw`flex-1 rounded-md  bg-white bg-opacity-50 my-2`}>
               <TextInput
-                style={tw("h-32 pl-2 mr-2")}
+                style={tw`h-32 pl-2 mr-2`}
                 autoCapitalize="none"
                 clearButtonMode="always"
                 value={lie}
@@ -187,18 +183,18 @@ const CardAdd = () => {
                 maxLength={180}
               />
               <Text
-                style={[tw("absolute bottom-2 right-2 text-xs opacity-50"), { fontFamily: "Nanum-Gothic" }]}
+                style={[tw`absolute bottom-2 right-2 text-xs opacity-50`, { fontFamily: "Nanum-Gothic" }]}
               >
                 Limit 180.
               </Text>
             </View>
 
-            <Text style={[tw("pt-5 text-xl"), { fontFamily: "Mon-Cheri" }]}>
+            <Text style={[tw`pt-5 text-xl`, { fontFamily: "Mon-Cheri" }]}>
               TRUTH
             </Text>
-            <View style={tw("flex-1 rounded-md  bg-white bg-opacity-50 my-2")}>
+            <View style={tw`flex-1 rounded-md  bg-white bg-opacity-50 my-2`}>
               <TextInput
-                style={tw("h-32 pl-2 mr-2")}
+                style={tw`h-32 pl-2 mr-2`}
                 autoCapitalize="none"
                 clearButtonMode="always"
                 value={truth}
@@ -207,12 +203,12 @@ const CardAdd = () => {
                 maxLength={180}
               />
               <Text
-                style={[tw("absolute bottom-2 right-2 text-xs opacity-50"), { fontFamily: "Nanum-Gothic" }]}
+                style={[tw`absolute bottom-2 right-2 text-xs opacity-50`, { fontFamily: "Nanum-Gothic" }]}
               >
                 Limit 180.
               </Text>
             </View>
-            <Text style={[tw("pt-5 text-sm"), { fontFamily: "Mon-Cheri" }]}>
+            <Text style={[tw`pt-5 text-sm`, { fontFamily: "Mon-Cheri" }]}>
               SUGGESTIONS
             </Text>
           </KeyboardAvoidingView>
@@ -221,7 +217,6 @@ const CardAdd = () => {
           ))}
         </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
   );
 };
 
