@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Routes from "./src/navigation";
-import { Text, View, Button, Platform } from "react-native";
+import { Platform } from "react-native";
 
 //Firebase/Firestore
 import Firebase from "./config/firebase";

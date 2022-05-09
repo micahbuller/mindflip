@@ -56,11 +56,6 @@ export default function Home({ navigation }) {
   }, [db]);
 
   return (
-    <ImageBackground
-      source={require("../assets/Home.png")}
-      resizeMode="cover"
-      style={{ flex: 1, justifyContent: "center" }}
-    >
     
       <SafeAreaView style={[tw(`flex-1`), {paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0}]}>
         <View style={tw("flex-row items-center justify-end px-5")}>
@@ -126,6 +121,5 @@ export default function Home({ navigation }) {
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
   );
 }
